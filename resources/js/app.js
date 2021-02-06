@@ -9,6 +9,10 @@ import Vuetify from 'vuetify';
 Vue.use(Vuetify);
 
 window.Vue = require('vue').default;
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import router from './router'
+Vue.use(VueRouter);
 
 /**
  * The following block of code may be used to automatically register your
@@ -21,7 +25,9 @@ window.Vue = require('vue').default;
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// グローバルコンポーネント
+// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('main-component', require('./components/MainComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -31,6 +37,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    router,
     vuetify: new Vuetify({
         iconfont: 'mdi',
         theme: {
