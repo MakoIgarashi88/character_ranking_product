@@ -18,10 +18,11 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 </head>
 <body>
-    <div id="app">
-        <v-app-bar>
+    <v-app id="app">
+        <v-app-bar app color="secondary" dark dense absolute>
             <v-btn text href="/">
                 {{ config('app.name', 'Laravel') }}
             </v-btn>
@@ -30,6 +31,6 @@
             @yield('content')
                 <main-component/>
         </main>
-    </div>
+    </v-app>
 </body>
 </html>
