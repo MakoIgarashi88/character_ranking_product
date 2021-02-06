@@ -4,7 +4,9 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+// require('./bootstrap');
+import Vuetify from 'vuetify';
+Vue.use(Vuetify);
 
 window.Vue = require('vue').default;
 
@@ -29,4 +31,17 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    vuetify: new Vuetify({
+        iconfont: 'mdi',
+        theme: {
+            themes: {
+                light: {
+                    primary: '#FFB74D',
+                    secondary: '#795548',
+                    accent: '#8c9eff',
+                    error: '#b71c1c',
+                },
+            },
+        },
+    }),
 });
