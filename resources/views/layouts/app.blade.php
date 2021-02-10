@@ -13,8 +13,8 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <!-- <link rel="dns-prefetch" href="//fonts.gstatic.com"> -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> -->
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -23,7 +23,7 @@
 <body>
     <v-app id="app">
         <v-app-bar app color="secondary" dark dense absolute>
-            <v-btn text href="/">
+            <v-btn text to="/">
                 {{ config('app.name', 'Laravel') }}
             </v-btn>
         </v-app-bar>

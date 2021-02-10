@@ -31,6 +31,8 @@ Vue.component('main-component', require('./components/MainComponent.vue').defaul
 Vue.component('IconLg', require('./components/commons/icons/IconLg.vue').default);
 Vue.component('IconSm', require('./components/commons/icons/IconSm.vue').default);
 Vue.component('CharaCard', require('./components/commons/CharacterCard.vue').default);
+Vue.component('CharaComment', require('./components/commons/CharacterComment.vue').default);
+Vue.component('ToRankingButton', require('./components/commons/buttons/ToRankingButton.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -42,13 +44,16 @@ const app = new Vue({
     el: '#app',
     router,
     vuetify: new Vuetify({
+        customVariables: ['~/assets/sass/variables.scss'],
         iconfont: 'mdi',
         theme: {
             themes: {
                 light: {
-                    primary: '#FFB74D',
-                    secondary: '#795548',
-                    accent: '#8c9eff',
+                    primary: '#E64A19',
+                    secondary: '#FF5722',
+                    // primary: '#ef7023',
+                    // secondary: '#40A3C1',
+                    accent: '#42A5F5',
                     error: '#b71c1c',
                 },
             },

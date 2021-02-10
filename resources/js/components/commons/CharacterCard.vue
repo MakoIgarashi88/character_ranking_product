@@ -2,7 +2,7 @@
     <v-card class="my-3" height="100%">
         <v-row>
             <v-col>
-                <IconLg :src="character.image_name" class="text-center mb-5"/>
+                <IconSm :src="character.image_name" class="text-center mb-5"/>
             </v-col>
         </v-row>
 
@@ -10,7 +10,9 @@
 
         <v-row justify="center">
             <v-col cols="10" class="text-center pb-0">
-                {{ character.name }}
+                <router-link :to="{ path: 'character/' + character.id }">
+                    {{ character.name }}
+                </router-link>
             </v-col>
         </v-row>
         <v-row justify="center">

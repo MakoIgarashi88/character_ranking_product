@@ -13,3 +13,11 @@
 // mdiアイコン
 @import '~@mdi/font/css/materialdesignicons.min.css';
 
+#app {
+    background: rgb(250, 244, 238);
+}
+
+// 大文字表記固定を解除
+.v-btn__content {
+    text-transform: none;
+}
