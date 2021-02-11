@@ -1,0 +1,120 @@
+<template>                    
+    <v-container>
+        <v-row justify="center">
+            <v-col cols="11" sm="10" md="8" lg="6">
+                <v-card>
+                    <!--キャラクター画像-->
+                    <v-row>
+                        <v-col>
+                            <IconLg :src="character.image_name" class="text-center my-5"/>
+                        </v-col>
+                    </v-row>
+            
+                    <v-divider class="pb-3"/>
+            
+                    <v-row justify="center">
+                        <v-col cols="10">
+                            <!--キャラクター紹介-->
+                            <v-row justify="center">
+                                <v-col class="text-center pb-0">
+                                    <h1>{{ character.name }}</h1>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col class="text-center pt-1">
+                                    <h3>作品名：{{ character.anime_title }}</h3>
+                                </v-col>
+                            </v-row>
+
+                            <!--パラメータ-->
+                            <v-row justify="center">
+                                <v-col class="text-center pt-4">
+                                    <h3>パラメーター</h3>
+                                </v-col>
+                            </v-row>
+                            <v-row justify="center">
+                                <v-col class="text-center pa-2">
+                                    <v-simple-table>
+                                        <template v-slot:default>
+                                            <tbody>
+                                                <tr
+                                                v-for="item in parameters"
+                                                :key="item.label"
+                                                >
+                                                    <td>{{ item.label }}</td>
+                                                    <td>
+                                                        <v-rating
+                                                        color="primary"
+                                                        background-color="grey"
+                                                        empty-icon="mdi-star-outline"
+                                                        full-icon="mdi-star"
+                                                        hover
+                                                        length="5"
+                                                        v-model="item.value"
+                                                        ></v-rating>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </template>
+                                    </v-simple-table>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col class="text-center pb-5">
+                                    <v-btn color="primary" @click="onSend">投票する</v-btn>
+                                </v-col>
+                            </v-row>
+                        </v-col>
+                    </v-row>
+                </v-card>
+            </v-col>
+        </v-row>
+    </v-container>
+</template>
+
+<script>
+export default {
+    props: [ "character_id" ],
+    data() {
+        return {
+            character: {
+                id: 1,
+                name: "爆豪勝己",
+                anime_title: "僕のヒーローアカデミア",
+                image_name: "/storage/images/02.jpeg",
+            },
+            parameters: [
+                {
+                    label: 'かわいい',
+                    name: 'cute',
+                    value: 1,
+                },
+                {
+                    label: 'かっこいい',
+                    name: 'cool',
+                    value: 1,
+                },
+                {
+                    label: '美しい',
+                    name: 'beautiful',
+                    value: 1,
+                },
+                {
+                    label: 'ワイルド',
+                    name: 'wild',
+                    value: 1,
+                },
+            ],
+        }
+    },
+    mounted () {
+
+    },
+    methods: {
+        onSend () {
+            console.log(this.parameters)
+        }
+    }
+}
+</script>
+

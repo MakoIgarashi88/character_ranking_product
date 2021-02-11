@@ -3,6 +3,11 @@
         <v-row justify="center">
             <v-col cols="11" sm="10" md="8" lg="6">
                 <v-card>
+                    <v-row justify="center">
+                        <v-col cols="11" class="text-end">
+                            <v-btn color="primary" :to="'/character/vote/' +  character.id">投票する</v-btn>
+                        </v-col>
+                    </v-row>
                     <!--キャラクター画像-->
                     <v-row>
                         <v-col>
@@ -19,6 +24,8 @@
                                 <v-col class="text-center pb-0">
                                     <h1>{{ character.name }}</h1>
                                 </v-col>
+                            </v-row>
+                            <v-row>
                                 <v-col class="text-center pt-1">
                                     <h3>作品名：{{ character.anime_title }}</h3>
                                 </v-col>

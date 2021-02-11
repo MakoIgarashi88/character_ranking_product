@@ -23,9 +23,35 @@
 <body>
     <v-app id="app">
         <v-app-bar app color="secondary" dark dense absolute>
-            <v-btn text to="/">
-                {{ config('app.name', 'Laravel') }}
-            </v-btn>
+            <v-row justify="space-between">
+                <v-col cols="auto">
+                    <v-btn text to="/">
+                        {{ config('app.name', 'Laravel') }}
+                    </v-btn>
+                </v-col>
+                <v-col cols="auto">
+                    <v-menu offset-y open-on-hover>
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-btn text v-bind="attrs" v-on="on" >
+                                <v-icon>mdi-menu</v-icon>
+                            </v-btn>
+                        </template>
+
+                        <v-list>
+                            <v-list-item to="/ranking/create">
+                                <v-list-item-title>ランキングを作る</v-list-item-title>
+                            </v-list-item>
+                            <v-list-item to="/character/search">
+                                <v-list-item-title>キャラクターを探す</v-list-item-title>
+                            </v-list-item>
+                            <v-list-item to="/character/create">
+                                <v-list-item-title>キャラクターを作る</v-list-item-title>
+                            </v-list-item>
+                        </v-list>
+                    </v-menu>
+
+                </v-col>
+            </v-row>
         </v-app-bar>
         <main class="py-4">
             @yield('content')
