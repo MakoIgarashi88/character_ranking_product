@@ -1,16 +1,17 @@
 <template>
     <v-card class="my-3" height="100%">
-        <v-row>
-            <v-col>
-                <IconSm :src="character.image_name" class="text-center mb-5"/>
+        <v-row justify="center">
+            <v-col cols="auto" class="text-center">
+                <IconSm :src="character.image_name" class="my-5"/>
             </v-col>
         </v-row>
+
 
         <v-divider class="pb-3"/>
 
         <v-row justify="center">
             <v-col cols="10" class="text-center pb-0">
-                <router-link :to="{ path: 'character/' + character.id }">
+                <router-link :to="{ path: '/character/' + character.id }">
                     {{ character.name }}
                 </router-link>
             </v-col>

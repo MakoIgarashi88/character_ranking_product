@@ -30,7 +30,7 @@
                     </v-btn>
                 </v-col>
                 <v-col cols="auto">
-                    <v-menu offset-y open-on-hover>
+                    <v-menu offset-y>
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn text v-bind="attrs" v-on="on" >
                                 <v-icon>mdi-menu</v-icon>

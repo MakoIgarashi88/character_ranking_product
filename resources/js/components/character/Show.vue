@@ -5,13 +5,14 @@
                 <v-card>
                     <v-row justify="center">
                         <v-col cols="11" class="text-end">
-                            <v-btn color="primary" :to="'/character/vote/' +  character.id">投票する</v-btn>
+                            <v-btn color="primary" :to="'/character/vote/' +  character.id">投票</v-btn>
+                            <v-btn color="primary" :to="'/character/edit/' +  character.id">編集</v-btn>
                         </v-col>
                     </v-row>
                     <!--キャラクター画像-->
-                    <v-row>
-                        <v-col>
-                            <IconLg :src="character.image_name" class="text-center my-5"/>
+                    <v-row justify="center">
+                        <v-col cols="auto" class="text-center">
+                            <IconLg :src="character.image_name" class="my-5"/>
                         </v-col>
                     </v-row>
             

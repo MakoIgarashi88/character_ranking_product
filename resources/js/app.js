@@ -32,7 +32,6 @@ Vue.component('IconLg', require('./components/commons/icons/IconLg.vue').default
 Vue.component('IconSm', require('./components/commons/icons/IconSm.vue').default);
 Vue.component('CharaCard', require('./components/commons/CharacterCard.vue').default);
 Vue.component('CharaComment', require('./components/commons/CharacterComment.vue').default);
-Vue.component('ToRankingButton', require('./components/commons/buttons/ToRankingButton.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

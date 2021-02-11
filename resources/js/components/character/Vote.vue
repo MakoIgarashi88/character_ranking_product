@@ -4,9 +4,9 @@
             <v-col cols="11" sm="10" md="8" lg="6">
                 <v-card>
                     <!--キャラクター画像-->
-                    <v-row>
-                        <v-col>
-                            <IconLg :src="character.image_name" class="text-center my-5"/>
+                    <v-row justify="center">
+                        <v-col cols="auto" class="text-center">
+                            <IconLg :src="character.image_name" class="my-5"/>
                         </v-col>
                     </v-row>
             

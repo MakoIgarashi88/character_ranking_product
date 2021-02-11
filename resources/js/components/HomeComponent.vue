@@ -1,10 +1,5 @@
 <template>
     <v-container>
-        <v-row justify="end">
-            <v-col cols="auto">
-                <ToRankingButton />
-            </v-col>
-        </v-row>
         <div v-for="(ranking, index) in rankings" :key="index">
             <v-row class="justify-center">
                 <v-col cols="12" class="text-center pa-5">
