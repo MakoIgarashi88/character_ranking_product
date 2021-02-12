@@ -38,6 +38,9 @@
                         </template>
 
                         <v-list>
+                        <v-list-item to="/ranking">
+                                <v-list-item-title>ランキング一覧</v-list-item-title>
+                            </v-list-item>
                             <v-list-item to="/ranking/create">
                                 <v-list-item-title>ランキングを作る</v-list-item-title>
                             </v-list-item>
