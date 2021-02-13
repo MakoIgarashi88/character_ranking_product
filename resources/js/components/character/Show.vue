@@ -89,7 +89,7 @@
                             <!--コメント表示--> 
                             <v-row justify="center">
                                 <v-col>
-                                    <CharaComment :character_id="character.id"/>
+                                    <CharaComment :character_id="character_id"/>
                                 </v-col>
                             </v-row>
                         </v-col>
@@ -105,52 +105,59 @@ export default {
     props: [ "character_id" ],
     data() {
         return {
-            character: {
-                id: 1,
-                name: "爆豪勝己",
-                anime_title: "僕のヒーローアカデミア",
-                image_name: "/storage/images/02.jpeg",
-                character_voice: '岡本信彦',
-                gender: 'female',
-                birthday: '4月20日',
-                age: '16',
-                bloodtype: 'A',
-                height: '172',
-                weight: '不明',
-                detail: '雄英高校ヒーロー科。薄い金髪に赤目の三白眼が特徴的な少年。主人公である緑谷出久とは幼馴染みで彼からの呼称は「かっちゃん」。将来の夢は本人曰く、「オールマイトをも超えるトップヒーローとなり、高額納税者ランキングに名を刻むこと」完璧主義者。',
-            },
+            character: {},
             rating: 1,
             items: [],
+            comments: [],
             parameters: [
-                {
-                    name: 'かわいい',
-                    value: 1,
-                },
-                {
-                    name: 'かっこいい',
-                    value: 3,
-                },
-                {
-                    name: '美しい',
-                    value: 2,
-                },
-                {
-                    name: 'ワイルド',
-                    value: 5,
-                },
+                { name: 'かわいい', value: 1 },
+                { name: 'かっこいい', value: 1 },
+                { name: 'ワイルド', value: 1 },
+                { name: '美しい', value: 1 },
+                { name: 'さわやか', value: 1 },
+
+                { name: '優しい', value: 1 },
+                { name: '穏やか', value: 1 },
+                { name: 'おとなしい', value: 1 },
+                { name: '活発', value: 1 },
+                { name: '怖い', value: 1 },
+
+                { name: '行動力', value: 1 },
+                { name: '筋力', value: 1 },
+                { name: 'すばやい', value: 1 },
+                { name: '戦略', value: 1 },
+                { name: '忍耐', value: 1 },
+
+                { name: '論理的', value: 1 },
+                { name: '博識', value: 1 },
+                { name: '語彙力', value: 1 },
+                { name: '予測', value: 1 },
+                { name: '記憶力', value: 1 },
             ],
         }
     },
     mounted () {
-        this.items = [
-            { text: 'CV', name: this.character.character_voice },
-            { text: '性別', name: this.character.gender },
-            { text: '誕生日', name: this.character.birthday },
-            { text: '年齢', name: this.character.age },
-            { text: '血液型', name: this.character.bloodtype },
-            { text: '身長', name: this.character.height },
-            { text: '体重', name: this.character.weight },
-        ]
+        this.getCharacter ()
+    },
+    methods: {
+        getCharacter () {
+            axios.get('/api/character/' + this.character_id)
+                .then(res => {
+                this.character = res.data
+                this.items = [
+                    { text: 'CV', name: this.character.character_voice },
+                    { text: '性別', name: this.character.gender },
+                    { text: '誕生日', name: this.character.birthday },
+                    { text: '年齢', name: this.character.age },
+                    { text: '血液型', name: this.character.blood_type },
+                    { text: '身長', name: this.character.height },
+                    { text: '体重', name: this.character.weight },
+                ]
+            }).catch(error => {
+                alert('キャラクターの取得に失敗しました')
+            }).finally(resp => {
+            })
+        }
     }
 }
 </script>

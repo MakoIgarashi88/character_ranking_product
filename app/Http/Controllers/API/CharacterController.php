@@ -4,6 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Character;
+use App\Models\Parameter;
+use App\Http\Resources\Character as CharacterResource;
 
 class CharacterController extends Controller
 {
@@ -13,16 +16,6 @@ class CharacterController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
     {
         //
     }
@@ -46,18 +39,17 @@ class CharacterController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        // $count = Parameter::where('character_id', $id)->count();
+        // foreach ($items as $item) {
+        //     $sum = Parameter::where('character_id', $id)->sum($item->name);
+        //     $sum / $count;
+        //     array_push()
+        // }
+        // $parameters = Parameter::where('character_id', $id)->get();
+        // logger('--------------');
+        // logger($parameters);
+        // logger('--------------');
+        return new CharacterResource(Character::find($id));
     }
 
     /**

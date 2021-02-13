@@ -17,7 +17,7 @@ class CharacterSeeder extends Seeder
         $model = new Character;
         $model->name = '爆豪勝己';
         $model->anime_title = '僕のヒーローアカデミア';
-        $model->image_name = 'storage/images/02.jpg';
+        $model->image_name = '/storage/images/02.jpeg';
         $model->character_voice = '岡本信彦';
         $model->gender = '男性';
         $model->birthday = '04/20';
@@ -31,7 +31,7 @@ class CharacterSeeder extends Seeder
         $model = new Character;
         $model->name = '胡蝶しのぶ';
         $model->anime_title = '鬼滅の刃';
-        $model->image_name = 'storage/images/03.jpg';
+        $model->image_name = '/storage/images/03.jpg';
         $model->character_voice = '早見沙織';
         $model->gender = '女性';
         $model->birthday = '02/24';
@@ -45,7 +45,7 @@ class CharacterSeeder extends Seeder
         $model = new Character;
         $model->name = '釘崎野薔薇';
         $model->anime_title = '呪術廻戦';
-        $model->image_name = 'storage/images/04.jpg';
+        $model->image_name = '/storage/images/04.jpg';
         $model->character_voice = '瀬戸麻沙美';
         $model->gender = '女性';
         $model->birthday = '08/07';
@@ -59,7 +59,7 @@ class CharacterSeeder extends Seeder
         $model = new Character;
         $model->name = '黒崎一護';
         $model->anime_title = 'BLEACH';
-        $model->image_name = 'storage/images/05.jepg';
+        $model->image_name = '/storage/images/05.jpeg';
         $model->character_voice = '森田成一';
         $model->gender = '男性';
         $model->birthday = '7/15';
@@ -73,7 +73,7 @@ class CharacterSeeder extends Seeder
         $model = new Character;
         $model->name = 'ナミ';
         $model->anime_title = 'ONE PIECE';
-        $model->image_name = 'storage/images/06.jpg';
+        $model->image_name = '/storage/images/06.jpg';
         $model->character_voice = '岡村朋美/山崎和佳奈（代役70~78話）';
         $model->gender = '女性';
         $model->birthday = '7/3';
@@ -87,7 +87,7 @@ class CharacterSeeder extends Seeder
         $model = new Character;
         $model->name = '毛利蘭';
         $model->anime_title = '名探偵コナン';
-        $model->image_name = 'storage/images/07.jpg';
+        $model->image_name = '/storage/images/07.jpg';
         $model->character_voice = '山崎和佳奈';
         $model->gender = '女性';
         $model->birthday = '不明';
@@ -101,7 +101,7 @@ class CharacterSeeder extends Seeder
         $model = new Character;
         $model->name = '越前リョーマ';
         $model->anime_title = 'テニスの王子様';
-        $model->image_name = 'storage/images/08.png';
+        $model->image_name = '/storage/images/08.png';
         $model->character_voice = '皆川純子';
         $model->gender = '男性';
         $model->birthday = '12/24';

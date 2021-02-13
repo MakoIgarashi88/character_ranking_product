@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\CharacterComment;
+use App\Http\Resources\CharacterComment as CharacterCommentResource;
 
 class CharacterCommentController extends Controller
 {
@@ -13,16 +15,6 @@ class CharacterCommentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
     {
         //
     }
@@ -46,18 +38,8 @@ class CharacterCommentController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $comments = CharacterComment::where('character_id', $id)->get();
+        return CharacterCommentResource::collection($comments);
     }
 
     /**

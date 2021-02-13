@@ -51,33 +51,21 @@ export default {
     data() {
         return {
             message: "",
-            comments: [
-                {
-                    body: "かわいい",
-                },
-                {
-                    body: "かっこいい",
-                },
-                {
-                    body: "かっこいい",
-                },
-                {
-                    body: "かっこいい",
-                },
-                {
-                    body: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                },
-            ]
+            comments: [],
         }
     },
+    mounted () {
+        this.getComments ()
+    },
     methods: {
-        getInit () {
-            axios.get('api/comment/' + this.character_id)
+        getComments () {
+            axios.get('/api/comment/' + this.character_id)
             .then(res => {
                 this.comments = res.data
+                console.log(this.comments)
+            }).catch(res => {
+                alert('コメントの取得に失敗しました')
             })
-            .catch(res => {  })
-            .finally(res => {  })
         },
         onStore () {
             // axios.post('api/comment/' + this.character_id, { message: this.message })
