@@ -121,4 +121,13 @@ class RankingController extends Controller
     {
         //
     }
+
+    /**
+     * ランキングのidとランキング名を取得,ランキング一覧ページ
+     */
+    public function list()
+    {
+        $rankings = Ranking::all();
+        return $rankings;
+    }
 }

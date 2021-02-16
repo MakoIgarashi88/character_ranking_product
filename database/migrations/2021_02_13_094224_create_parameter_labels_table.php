@@ -18,6 +18,7 @@ class CreateParameterLabelsTable extends Migration
             $table->string('label')->comment('パラメーター名');
             $table->string('key_name')->comment('キー名');
             $table->string('color')->comment('色');
+            $table->integer('value')->default(1)->comment('初期値');
             $table->timestamps();
         });
     }

@@ -3,14 +3,14 @@
         <v-row justify="center">
             <v-col cols="12" sm="10" md="8">
                 <v-text-field
-                v-model="message"
+                v-model="word"
                 background-color="white"
                 append-outer-icon='mdi-send'
                 filled
                 clear-icon="mdi-close-circle"
                 clearable
                 type="text"
-                @click:append-outer="sendMessage"
+                @click:append-outer="onSearch"
                 @click:clear="clearMessage"
                 ></v-text-field>
             </v-col>
@@ -18,7 +18,7 @@
         <v-row justify="end">
         </v-row>
         <v-row justify="center">
-            <v-col cols="10" sm="3" lg="2" v-for="(character, index) in ranking.characters" :key="index">
+            <v-col cols="10" sm="3" lg="2" v-for="(character, index) in characters" :key="index">
                 <CharaCard :character="character" />
             </v-col>
         </v-row>
@@ -27,77 +27,37 @@
 
 <script>
 export default {
-    props: [ 'runking_id' ],
     data () {
         return {
-            message: '',
-            iconIndex: 0,
-            ranking: {
-                id:1,
-                name: '総合',
-                characters: [
-                    {
-                        id: 1,
-                        name: "爆豪勝己",
-                        anime_title: "終末なにしてますか？ 忙しいですか？ 救ってもらっていいですか？",
-                        image_name: "/storage/images/02.jpeg",
-                    },
-                    {
-                        id: 2,
-                        name: "天童",
-                        anime_title: "ハイキュー!!",
-                        image_name: "/storage/images/02.jpeg",
-                    },
-                    {
-                        id: 3,
-                        name: "爆豪勝己",
-                        anime_title: "僕のヒーローアカデミア",
-                        image_name: "/storage/images/02.jpeg",
-                    },
-                    {
-                        id: 4,
-                        name: "天童",
-                        anime_title: "ハイキュー!!",
-                        image_name: "/storage/images/02.jpeg",
-                    },     
-                    {
-                        id: 1,
-                        name: "爆豪勝己",
-                        anime_title: "終末なにしてますか？ 忙しいですか？ 救ってもらっていいですか？",
-                        image_name: "/storage/images/02.jpeg",
-                    },
-                    {
-                        id: 2,
-                        name: "天童",
-                        anime_title: "ハイキュー!!",
-                        image_name: "/storage/images/02.jpeg",
-                    },
-                    {
-                        id: 3,
-                        name: "爆豪勝己",
-                        anime_title: "僕のヒーローアカデミア",
-                        image_name: "/storage/images/02.jpeg",
-                    },
-                    {
-                        id: 4,
-                        name: "天童",
-                        anime_title: "ハイキュー!!",
-                        image_name: "/storage/images/02.jpeg",
-                    },                     
-                ],
-            },
+            word: '',
+            characters: [],
         }
     },
+    mounted () {
+        this.getCharacters ()
+    },
     methods: {
-        sendMessage () {
-            this.resetIcon()
-            this.clearMessage()
+        getCharacters () {
+            axios.get('/api/character/list')
+            .then(res => {
+                this.characters = res.data
+            }).catch(error => {
+                alert(error)
+            })
+        },
+        onSearch () {
+            axios.post('/api/character/search', {
+                word: this.word
+            }).then(res => {
+                console.log(res.data)
+                this.characters = res.data
+            }).catch(error => {
+                alert(error)
+            })
         },
         clearMessage () {
-            this.message = ''
-        },
-        resetIcon () {
-            this.iconIndex = 0
+            this.word = ''
+            this.getCharacters ()
         },
     },
 }

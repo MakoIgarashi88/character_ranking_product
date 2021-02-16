@@ -54,9 +54,9 @@
                                     <tbody>
                                         <tr
                                         v-for="item in parameters"
-                                        :key="item.name"
+                                        :key="item.label"
                                         >
-                                            <td>{{ item.name }}</td>
+                                            <td>{{ item.label }}</td>
                                             <td>
                                                 <v-rating
                                                 color="primary"
@@ -109,31 +109,7 @@ export default {
             rating: 1,
             items: [],
             comments: [],
-            parameters: [
-                { name: 'かわいい', value: 1 },
-                { name: 'かっこいい', value: 1 },
-                { name: 'ワイルド', value: 1 },
-                { name: '美しい', value: 1 },
-                { name: 'さわやか', value: 1 },
-
-                { name: '優しい', value: 1 },
-                { name: '穏やか', value: 1 },
-                { name: 'おとなしい', value: 1 },
-                { name: '活発', value: 1 },
-                { name: '怖い', value: 1 },
-
-                { name: '行動力', value: 1 },
-                { name: '筋力', value: 1 },
-                { name: 'すばやい', value: 1 },
-                { name: '戦略', value: 1 },
-                { name: '忍耐', value: 1 },
-
-                { name: '論理的', value: 1 },
-                { name: '博識', value: 1 },
-                { name: '語彙力', value: 1 },
-                { name: '予測', value: 1 },
-                { name: '記憶力', value: 1 },
-            ],
+            parameters: [],
         }
     },
     mounted () {
@@ -141,8 +117,11 @@ export default {
     },
     methods: {
         getCharacter () {
-            axios.get('/api/character/' + this.character_id)
-                .then(res => {
+            const api = axios.create()
+            axios.all([
+                api.get('/api/character/' + this.character_id),
+                api.get('/api/parameter/' + this.character_id),
+            ]).then(axios.spread((res,res2) => {
                 this.character = res.data
                 this.items = [
                     { text: 'CV', name: this.character.character_voice },
@@ -153,7 +132,8 @@ export default {
                     { text: '身長', name: this.character.height },
                     { text: '体重', name: this.character.weight },
                 ]
-            }).catch(error => {
+                this.parameters = res2.data
+            })).catch(error => {
                 alert('キャラクターの取得に失敗しました')
             }).finally(resp => {
             })

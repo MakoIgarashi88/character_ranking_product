@@ -38,16 +38,16 @@
                         </template>
 
                         <v-list>
-                        <v-list-item to="/ranking">
+                            <v-list-item to="/ranking" exact>
                                 <v-list-item-title>ランキング一覧</v-list-item-title>
                             </v-list-item>
-                            <v-list-item to="/ranking/create">
+                            <v-list-item to="/ranking/create" exact>
                                 <v-list-item-title>ランキングを作る</v-list-item-title>
                             </v-list-item>
-                            <v-list-item to="/character/search">
+                            <v-list-item to="/character/search" exact>
                                 <v-list-item-title>キャラクターを探す</v-list-item-title>
                             </v-list-item>
-                            <v-list-item to="/character/create">
+                            <v-list-item to="/character/create" exact>
                                 <v-list-item-title>キャラクターを作る</v-list-item-title>
                             </v-list-item>
                         </v-list>

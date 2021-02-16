@@ -5,8 +5,8 @@
                 <h2>ランキング一覧</h2>
             </v-col>
         </v-row>
-        <v-row justify="center">
-            <v-col cols="10" v-for="(ranking, index) in rankings" :key="index">
+        <v-row>
+            <v-col cols="auto" v-for="(ranking, index) in rankings" :key="index">
                 <router-link :to="{ name: 'ranking.show', params: { 'ranking_id': ranking.id } }">
                     <h3>{{ranking.name}}ランキング</h3>
                 </router-link>
@@ -19,23 +19,21 @@
 export default {
     data () {
         return {
-            rankings: [
-                {
-                    id:1,
-                    name: '総合',
-                },
-                {
-                    id:1,
-                    name: 'かっこいい',
-                },
-                {
-                    id:1,
-                    name: 'かわいい',
-                },
-            ]
+            rankings: [],
         }
     },
-    components: {
+    mounted () {
+        this.getRankings()
+    },
+    methods: {
+        getRankings () {
+            axios.get('/api/ranking/list')
+            .then(res => {
+                this.rankings = res.data
+            }).catch(res => {
+                alert('一覧の取得に失敗しました')
+            })
+        }
     }
 }
 </script>

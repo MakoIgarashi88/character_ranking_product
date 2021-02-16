@@ -4,6 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\ParameterLabel;
+use App\Models\Parameter;
 
 class ParameterController extends Controller
 {
@@ -14,7 +17,8 @@ class ParameterController extends Controller
      */
     public function index()
     {
-        //
+        $parameters = ParameterLabel::all();
+        return ($parameters);
     }
 
     /**
@@ -35,7 +39,15 @@ class ParameterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::transaction(function () use ($request) {
+            $parameter = new Parameter;
+            $parameter->character_id = $request->character_id;
+            foreach ($request->parameters as $data) {
+                $key = $data['key_name'];
+                $parameter->$key = $data['value'];
+            }
+            $parameter->save();
+        });
     }
 
     /**
@@ -46,7 +58,21 @@ class ParameterController extends Controller
      */
     public function show($id)
     {
-        //
+        $columns = ParameterLabel::all('key_name', 'label');
+        // カラムごとの平均を四捨五入し、整数型にする。
+        $values = [];
+        foreach ($columns as $column) {
+            $value = Parameter::where('character_id', $id)
+                ->selectRaw("convert(round(avg($column->key_name)),unsigned) as value")
+                ->selectRaw("'$column->label' as label")
+                ->groupBy('character_id')
+                ->first();
+
+            array_push($values, $value);
+        }
+
+        return ($values);
+
     }
 
     /**

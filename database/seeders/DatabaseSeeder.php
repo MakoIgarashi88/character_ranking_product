@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CharacterSeeder::class,
             CharacterCommentSeeder::class,
-            ParameterNameSeeder::class,
+            ParameterLabelSeeder::class,
             ParameterSeeder::class,
             RankingSeeder::class,
             ItemSeeder::class,

@@ -77,42 +77,36 @@ export default {
     props: [ "character_id" ],
     data() {
         return {
-            character: {
-                id: 1,
-                name: "爆豪勝己",
-                anime_title: "僕のヒーローアカデミア",
-                image_name: "/storage/images/02.jpeg",
-            },
-            parameters: [
-                {
-                    label: 'かわいい',
-                    name: 'cute',
-                    value: 1,
-                },
-                {
-                    label: 'かっこいい',
-                    name: 'cool',
-                    value: 1,
-                },
-                {
-                    label: '美しい',
-                    name: 'beautiful',
-                    value: 1,
-                },
-                {
-                    label: 'ワイルド',
-                    name: 'wild',
-                    value: 1,
-                },
-            ],
+            character: {},
+            parameters: [],
         }
     },
     mounted () {
-
+        this.getCharacter ()
     },
     methods: {
+        getCharacter () {
+            const api = axios.create()
+            axios.all([
+            api.get('/api/character/' + this.character_id),
+            api.get('/api/parameter/'),
+            ]).then(axios.spread((res,res2) => {
+                this.character = res.data
+                this.parameters = res2.data
+            }))
+        },
         onSend () {
             console.log(this.parameters)
+            axios.post('/api/parameter', {
+                character_id: this.character_id,
+                parameters: this.parameters,
+            }).then(res => {
+                alert('投票されました')
+            }).catch(error => {
+                alert(error)
+            }).finally(res => {
+                this.$router.go(-1)
+            })
         }
     }
 }

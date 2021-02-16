@@ -62,7 +62,6 @@ export default {
             axios.get('/api/comment/' + this.character_id)
             .then(res => {
                 this.comments = res.data
-                console.log(this.comments)
             }).catch(res => {
                 alert('コメントの取得に失敗しました')
             })

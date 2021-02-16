@@ -27,124 +27,170 @@
 
                     <v-row justify="center">
                         <v-col cols="10">
-                            <v-row justify="center">
-                                <v-col class="text-center">
-                                    <v-text-field
-                                    :label="is_update ? 'キャラクター名' : ''"
-                                    :placeholder="is_update ? '' : 'キャラクター名'"
-                                    :disabled="is_update"
-                                    v-model="character.name"
-                                    outlined
-                                    dense
-                                    ></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col class="text-center">
-                                    <v-text-field
-                                    :label="is_update ? '作品名' : ''"
-                                    :placeholder="is_update ? '' : '作品名'"
-                                    :disabled="is_update"
-                                    v-model="character.anime_title"
-                                    outlined
-                                    dense
-                                    ></v-text-field>
-                                </v-col>
-                            </v-row>    
-                            <v-row justify="center">
-                                <v-col>
-                                    <v-text-field
-                                    :label="is_update ? 'CV' : ''"
-                                    :placeholder="is_update ? '' : 'CV'"
-                                    v-model="character.character_voice"
-                                    outlined
-                                    dense
-                                    ></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row justify="center">
-                                <v-col>
-                                    <v-text-field
-                                    :label="is_update ? '性別' : ''"
-                                    :placeholder="is_update ? '' : '性別'"
-                                    v-model="character.gender"
-                                    outlined
-                                    dense
-                                    ></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row justify="center">
-                                <v-col>
-                                    <v-text-field
-                                    :label="is_update ? '誕生日' : ''"
-                                    :placeholder="is_update ? '' : '誕生日'"
-                                    v-model="character.birthday"
-                                    outlined
-                                    dense
-                                    ></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row justify="center">
-                                <v-col>
-                                    <v-text-field
-                                    :label="is_update ? '年齢' : ''"
-                                    :placeholder="is_update ? '' : '年齢'"
-                                    v-model="character.age"
-                                    outlined
-                                    dense
-                                    ></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row justify="center">
-                                <v-col>
-                                    <v-text-field
-                                    :label="is_update ? '血液型' : ''"
-                                    :placeholder="is_update ? '' : '血液型'"
-                                    v-model="character.bloodtype"
-                                    outlined
-                                    dense
-                                    ></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row justify="center">
-                                <v-col>
-                                    <v-text-field
-                                    :label="is_update ? '身長' : ''"
-                                    :placeholder="is_update ? '' : '身長'"
-                                    v-model="character.height"
-                                    outlined
-                                    dense
-                                    ></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row justify="center">
-                                <v-col>
-                                    <v-text-field
-                                    :label="is_update ? '体重' : ''"
-                                    :placeholder="is_update ? '' : '体重'"
-                                    v-model="character.weight"
-                                    outlined
-                                    dense
-                                    ></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row justify="center">
-                                <v-col>
-                                    <v-textarea
-                                    :label="is_update ? '詳細' : ''"
-                                    :placeholder="is_update ? '' : '詳細'"
-                                    v-model="character.detail"
-                                    outlined
-                                    dense
-                                    ></v-textarea>
-                                </v-col>
-                            </v-row>
-
-                            <v-row justify="center">
-                                <v-col class="text-center pb-5">
-                                    <v-btn color="primary" @click="onCreateUpdate">{{ is_update ? '編集' : '登録' }}</v-btn>
-                                </v-col>
-                            </v-row>
+                            <v-form ref="form" v-model="valid">
+                                <v-row justify="center">
+                                    <v-col class="text-center">
+                                        <v-text-field
+                                        label="キャラクター名"
+                                        :placeholder="is_update ? '' : 'キャラクター名'"
+                                        :disabled="is_update"
+                                        :rules="nameRules"
+                                        v-model="character.name"
+                                        outlined
+                                        dense
+                                        ></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col class="text-center">
+                                        <v-text-field
+                                        label="作品名"
+                                        :placeholder="is_update ? '' : '作品名'"
+                                        :disabled="is_update"
+                                        :rules="animeNameRules"
+                                        v-model="character.anime_title"
+                                        outlined
+                                        dense
+                                        ></v-text-field>
+                                    </v-col>
+                                </v-row>    
+                                <v-row justify="center">
+                                    <v-col>
+                                        <v-text-field
+                                        label="CV"
+                                        :placeholder="is_update ? '' : 'キャラクターボイス'"
+                                        :rules="characterVoiceRules"
+                                        v-model="character.character_voice"
+                                        outlined
+                                        dense
+                                        ></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row justify="center">
+                                    <v-col cols="9">
+                                        <v-text-field
+                                        label="性別"
+                                        :placeholder="is_update ? '' : '例：女/男/なし'"
+                                        :rules="genderRules"
+                                        v-model="character.gender"
+                                        outlined
+                                        dense
+                                        ></v-text-field>
+                                    </v-col>
+                                    <v-col cols="3">
+                                        <v-checkbox
+                                        v-model="character.gender"
+                                        value="不明"
+                                        label="不明"
+                                        ></v-checkbox>
+                                    </v-col>
+                                </v-row>
+                                <v-row justify="center">
+                                    <v-col>
+                                        <v-text-field
+                                        label="誕生日"
+                                        :placeholder="is_update ? '' : '例：1月1日'"
+                                        :rules="birthdayRules"
+                                        v-model="character.birthday"
+                                        outlined
+                                        dense
+                                        ></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row justify="center">
+                                    <v-col>
+                                        <v-text-field
+                                        label="年齢"
+                                        :placeholder="is_update ? '' : '例：16歳'"
+                                        :rules="ageRules"
+                                        v-model="character.age"
+                                        outlined
+                                        dense
+                                        ></v-text-field>
+                                    </v-col>
+                                    <v-col cols="3">
+                                        <v-checkbox
+                                        v-model="character.age"
+                                        value="不明"
+                                        label="不明"
+                                        ></v-checkbox>
+                                    </v-col>
+                                </v-row>
+                                <v-row justify="center">
+                                    <v-col>
+                                        <v-text-field
+                                        label="血液型"
+                                        :placeholder="is_update ? '' : '例：A型 B型 O型 AB型 X型'"
+                                        :rules="bloodTypeRules"
+                                        v-model="character.blood_type"
+                                        outlined
+                                        dense
+                                        ></v-text-field>
+                                    </v-col>
+                                    <v-col cols="3">
+                                        <v-checkbox
+                                        v-model="character.blood_type"
+                                        value="不明"
+                                        label="不明"
+                                        ></v-checkbox>
+                                    </v-col>
+                                </v-row>
+                                <v-row justify="center">
+                                    <v-col>
+                                        <v-text-field
+                                        label="身長"
+                                        :placeholder="is_update ? '' : '例：170cm'"
+                                        :rules="heightRules"
+                                        v-model="character.height"
+                                        outlined
+                                        dense
+                                        ></v-text-field>
+                                    </v-col>
+                                    <v-col cols="3">
+                                        <v-checkbox
+                                        v-model="character.height"
+                                        value="不明"
+                                        label="不明"
+                                        ></v-checkbox>
+                                    </v-col>
+                                </v-row>
+                                <v-row justify="center">
+                                    <v-col>
+                                        <v-text-field
+                                        label="体重"
+                                        :placeholder="is_update ? '' : '60kg'"
+                                        :rules="weightRules"
+                                        v-model="character.weight"
+                                        outlined
+                                        dense
+                                        ></v-text-field>
+                                    </v-col>
+                                    <v-col cols="3">
+                                        <v-checkbox
+                                        v-model="character.weight"
+                                        value="不明"
+                                        label="不明"
+                                        ></v-checkbox>
+                                    </v-col>                                    
+                                </v-row>
+                                <v-row justify="center">
+                                    <v-col>
+                                        <v-textarea
+                                        label="詳細"
+                                        :rules="detailRules"
+                                        v-model="character.detail"
+                                        outlined
+                                        dense
+                                        ></v-textarea>
+                                    </v-col>
+                                </v-row>
+    
+                                <v-row justify="center">
+                                    <v-col class="text-center pb-5">
+                                        <v-btn color="primary" :disabled="!valid" @click="onCreateUpdate">{{ is_update ? '編集' : '登録' }}</v-btn>
+                                    </v-col>
+                                </v-row>
+                            </v-form>
                         </v-col>
                     </v-row>
                 </v-card>
@@ -158,9 +204,49 @@ export default {
     props: [ "character_id" ],
     data() {
         return {
+            valid: false,
             character: {},
             image: '/storage/images/default.jpeg',
             upload_image: null,
+            nameRules: [
+                v => !!v || '必須入力',
+                v => (v && v.length <= 20) || '20文字以内で入力してください',
+            ],
+            animeNameRules: [
+                v => !!v || '必須入力',
+                v => (v && v.length <= 30) || '30文字以内で入力してください',
+            ],
+            characterVoiceRules: [
+                v => !!v || '必須入力',
+                v => (v && v.length <= 20) || '20文字以内で入力してください',
+            ],
+            genderRules: [
+                v => !!v || '必須入力',
+                v => (v && v.length <= 30) || '30文字以内で入力してください',
+            ],
+            birthdayRules: [
+                v => !!v || '必須入力',
+                v => (v && v.length <= 30) || '30文字以内で入力してください',
+            ],
+            ageRules: [
+                v => !!v || '必須入力',
+                v => (v && v.length <= 30) || '30文字以内で入力してください',
+            ],
+            bloodTypeRules: [
+                v => !!v || '必須入力',
+                v => (v && v.length <= 30) || '30文字以内で入力してください',
+            ],
+            heightRules: [
+                v => !!v || '必須入力',
+                v => (v && v.length <= 30) || '30文字以内で入力してください',
+            ],
+            weightRules: [
+                v => !!v || '必須入力',
+                v => (v && v.length <= 30) || '30文字以内で入力してください',
+            ],
+            detailRules: [
+                v => (v && v.length <= 400) || '400文字以内で入力してください',
+            ],
         }
     },
     mounted () {
@@ -178,23 +264,33 @@ export default {
     },
     methods: {
         getItems () {
-            this.character = {
-                id: 1,
-                name: "爆豪勝己",
-                anime_title: "僕のヒーローアカデミア",
-                image_name: "/storage/images/02.jpeg",
-                character_voice: '岡本信彦',
-                gender: 'female',
-                birthday: '4月20日',
-                age: '16',
-                bloodtype: 'A',
-                height: '172',
-                weight: '不明',
-                detail: '雄英高校ヒーロー科。薄い金髪に赤目の三白眼が特徴的な少年。主人公である緑谷出久とは幼馴染みで彼からの呼称は「かっちゃん」。将来の夢は本人曰く、「オールマイトをも超えるトップヒーローとなり、高額納税者ランキングに名を刻むこと」完璧主義者。',
-            }
+            axios.get('/api/character/' + this.character_id)
+                .then(res => {
+                this.character = res.data
+            }).catch(error => {
+                alert('キャラクターの取得に失敗しました')
+            }).finally(resp => {
+            })
         },
         onCreateUpdate () {
-            console.log('通過')
+            if (this.is_update) {
+                console.log('true')
+            } else {
+                // body = {
+                //     character: this.character,
+                //     upload_image: this.upload_image,
+                // }
+                console.log('false')
+                axios.post('/api/character', {
+                    character: this.character,
+                    upload_image: this.upload_image,
+                })
+                .then(res => {
+                    console.log(res.data)
+                }).catch(res => {
+                    alert('一覧の取得に失敗しました')
+                })
+            }
         },
         // onCreateUpdate () {
         //     console.log('通過')
