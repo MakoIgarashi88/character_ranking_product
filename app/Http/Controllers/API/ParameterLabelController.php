@@ -4,11 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Models\CharacterComment;
-use App\Http\Resources\CharacterComment as CharacterCommentResource;
+use App\Models\ParameterLabel;
 
-class CharacterCommentController extends Controller
+class ParameterLabelController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +15,8 @@ class CharacterCommentController extends Controller
      */
     public function index()
     {
-        //
+        $labels = ParameterLabel::all();
+        return $labels;
     }
 
     /**
@@ -28,16 +27,7 @@ class CharacterCommentController extends Controller
      */
     public function store(Request $request)
     {
-        $comment = DB::transaction(function () use ($request) {
-            $comment = new CharacterComment;
-            $comment->character_id = $request->character_id;
-            $comment->body = $request->message;
-            $comment->save();
-
-            return $comment;
-        });
-
-        return new CharacterCommentResource($comment);
+        //
     }
 
     /**
@@ -48,8 +38,7 @@ class CharacterCommentController extends Controller
      */
     public function show($id)
     {
-        $comments = CharacterComment::where('character_id', $id)->get();
-        return CharacterCommentResource::collection($comments);
+        //
     }
 
     /**

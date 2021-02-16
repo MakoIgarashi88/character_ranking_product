@@ -96,6 +96,13 @@
                                         dense
                                         ></v-text-field>
                                     </v-col>
+                                    <v-col cols="3">
+                                        <v-checkbox
+                                        v-model="character.birthday"
+                                        value="不明"
+                                        label="不明"
+                                        ></v-checkbox>
+                                    </v-col>
                                 </v-row>
                                 <v-row justify="center">
                                     <v-col>
@@ -284,9 +291,6 @@ export default {
                 axios.post('/api/character', {
                     character: this.character,
                     upload_image: this.upload_image,
-                })
-                .then(res => {
-                    console.log(res.data)
                 }).catch(res => {
                     alert('一覧の取得に失敗しました')
                 })

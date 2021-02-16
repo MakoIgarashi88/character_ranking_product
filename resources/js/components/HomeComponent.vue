@@ -7,7 +7,7 @@
         </v-row>
         <div v-for="(ranking, index) in rankings" :key="index">
             <v-row class="justify-center">
-                <v-col cols="12" class="text-center pa-5">
+                <v-col cols="auto" class="pa-5">
                     <router-link :to="{ path: 'ranking/' + ranking.id }">
                         <h2>{{ ranking.name }}ランキング</h2>
                     </router-link>                   
@@ -34,7 +34,7 @@ export default {
     },
     methods: {
         getItems () {
-            axios.get('/api/character')
+            axios.get('/api/ranking')
             .then(res => {
                 this.rankings = res.data
             }).catch(error => {

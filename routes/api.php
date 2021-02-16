@@ -6,6 +6,7 @@ use App\Http\Controllers\API\RankingController;
 use App\Http\Controllers\API\CharacterController;
 use App\Http\Controllers\API\CharacterCommentController;
 use App\Http\Controllers\API\ParameterController;
+use App\Http\Controllers\API\ParameterLabelController;
 
 
 /*
@@ -26,10 +27,12 @@ use App\Http\Controllers\API\ParameterController;
 Route::get('/ranking/list', [RankingController::class, 'list']);
 Route::get('/character/list', [CharacterController::class, 'searchList']);
 Route::post('/character/search', [CharacterController::class, 'search']);
+Route::post('/ranking/search', [CharacterController::class, 'search']);
 Route::apiResource('ranking', RankingController::class);
 Route::apiResource('character', CharacterController::class);
 Route::apiResource('comment', CharacterCommentController::class);
 Route::apiResource('parameter', ParameterController::class);
+Route::apiResource('parameter_label', ParameterLabelController::class);
 // // top
 // Route::get('ranking', 'API\RankingController@index');
 

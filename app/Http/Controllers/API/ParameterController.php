@@ -60,18 +60,17 @@ class ParameterController extends Controller
     {
         $columns = ParameterLabel::all('key_name', 'label');
         // カラムごとの平均を四捨五入し、整数型にする。
-        $values = [];
         foreach ($columns as $column) {
-            $value = Parameter::where('character_id', $id)
+            $parameter = Parameter::where('character_id', $id)
                 ->selectRaw("convert(round(avg($column->key_name)),unsigned) as value")
                 ->selectRaw("'$column->label' as label")
                 ->groupBy('character_id')
                 ->first();
 
-            array_push($values, $value);
+            $column['value'] = $parameter ? $parameter['value'] : 1;
         }
 
-        return ($values);
+        return $columns;
 
     }
 

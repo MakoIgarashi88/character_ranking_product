@@ -137,7 +137,7 @@ export default {
                 alert('キャラクターの取得に失敗しました')
             }).finally(resp => {
             })
-        }
+        },
     }
 }
 </script>

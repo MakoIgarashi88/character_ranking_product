@@ -1,7 +1,7 @@
 <template>
     <div>
         <!--コメントリスト-->
-        <v-row>
+        <v-row v-show="comments.length">
             <v-col>
                 <v-card outlined>
                     <v-toolbar color="primary" dark dens class="mb-2">コメント</v-toolbar>
@@ -26,7 +26,7 @@
                 <v-textarea 
                 v-model="message"
                 solo 
-                label="メッセージを入力してください"
+                label="コメントを投稿する"
                 :error-messages="message.length > 100 ? '100文字以内で入力してください' : ''"
                 :hide-details="message.length <= 100"
                 ></v-textarea>
@@ -67,15 +67,14 @@ export default {
             })
         },
         onStore () {
-            // axios.post('api/comment/' + this.character_id, { message: this.message })
-            // .then(res => {
-            //     this.comments.unshift(res.data)
-            //     this.message = ""
-            // })
-            this.comments.unshift({
-                body: this.message
+            axios.post('/api/comment', {
+                character_id: this.character_id,
+                message: this.message,
+            }).then(res => {
+                console.log(res.data)
+                this.comments.unshift(res.data)
+                this.message = ""
             })
-            this.message = ""
         }
     }
 }

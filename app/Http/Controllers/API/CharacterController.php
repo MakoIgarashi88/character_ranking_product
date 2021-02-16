@@ -21,42 +21,7 @@ class CharacterController extends Controller
      */
     public function index()
     {
-        $rankings = Ranking::orderBy('id', 'desc')->take(5)->get(['id', 'name']);
-        foreach ($rankings as $ranking) {
-            $columns = Item::where('ranking_id', $ranking->id)->get()->pluck('name');
-            $character_columns = ['characters.id', 'characters.name', 'characters.anime_title', 'characters.image_name'];
-    
-            // parameterテーブルとcharacterテーブルを結合
-            $query = Parameter::join('characters', 'character_id', '=', 'characters.id')
-                ->select($character_columns);
-
-            // 各カラムごとに値を合計
-            // ランキング要素となっているカラムを合計(pointを集計)
-            $string = '';
-            foreach ($columns as $index => $column) {
-                $string .= $index ? "+ round(avg($column))" : "round(avg($column))";
-            }
-            $query->selectRaw("$string as point");
-
-            // カラムごとの平均を、カラム名をキーとして配列に追加
-            foreach ($columns as $column) {
-                $query->selectRaw("round(avg($column)) as $column");
-            }
-            
-            // キャラクターごとにまとめて、pointを昇順整列
-            $characters = $query->groupBy($character_columns)->orderBy('point', 'desc')->take(4)->get();
-
-            $points = $characters->pluck('point');
-
-            // ランキングキーを作成し、ランキングを付ける
-            foreach($points as $index => $point) {
-                $characters[$index]['rank'] = Ranking::getRank($index, $points);
-            }
-
-            $ranking['characters'] = $characters;
-        }
-
-        return $rankings;
+        //
     }
 
     /**

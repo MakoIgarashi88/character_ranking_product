@@ -15,7 +15,7 @@
                 <v-col cols="10">
                     <v-card outlined>
                         <v-card-text>
-                            <v-row justify="center">
+                            <v-row>
                                 <v-col cols="12" sm="4" md="3" lg="2" class="text-center" v-for="(param, index) in params" :key="index">
                                     <v-checkbox
                                     v-model="check_parameters"
@@ -53,30 +53,21 @@ export default {
         return {
             ranking_name: "",
             check_parameters: [],
-            params: [
-                { label: "かわいい", key_name: "cute", color: "pink", },                
-                { label: 'かっこいい', key_name: 'cool', color: 'blue', },
-                { label: 'ワイルド', key_name: 'wild', color: 'blue-grey', },
-                { label: '美しい', key_name: 'beautiful', color: 'purple', },
-                { label: 'さわやか', key_name: 'fresh', color: 'light-green', },
-                { label: '優しい', key_name: 'kind', color: 'lime', },
-                { label: 'おとなしい', key_name: 'quiet', color: 'teal', },
-                { label: '活発', key_name: 'active', color: 'deep-orange',},
-                { label: '怖い', key_name: 'scare', color: 'indigo', },
-                { label: '行動力', key_name: 'action', color: 'orange', },
-                { label: '筋力', key_name: 'power', color: 'amber', },
-                { label: 'すばやい', key_name: 'speed', color: 'light-blue', },
-                { label: '戦略', key_name: 'strategy', color: 'green', },
-                { label: '忍耐', key_name: 'endurance', color: 'yellow', },
-                { label: '論理的', key_name: 'logic', color: 'cyan', },
-                { label: '博識', key_name: 'knowledge', color: 'lime', },
-                { label: '語彙力', key_name: 'vocabulary', color: 'red', },
-                { label: '予測', key_name: 'forecast', color: 'pink', },
-                { label: '記憶力', key_name: 'memory', color: 'amber', },
-            ],
+            params: [],
         }
     },
+    mounted () {
+        this.getItems ()
+    },
     methods: {
+        getItems () {
+            axios.get('/api/parameter_label')
+            .then(res => {
+                this.params = res.data
+            }).catch(error => {
+                alert(error)
+            })
+        },
         onStore () {
             axios.post('/api/ranking/', {
                 ranking_name: this.ranking_name,
