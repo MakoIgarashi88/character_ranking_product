@@ -258,11 +258,6 @@ export default {
     },
     mounted () {
         if (this.is_update) this.getItems()
-        // character.imageがあれば、imageに挿入してdefault.jpegを書き換える
-        if (this.character.image_name) {
-            this.image = this.character.image_name
-        }
-
     },
     computed: {
         is_update () {
@@ -274,6 +269,7 @@ export default {
             axios.get('/api/character/' + this.character_id)
                 .then(res => {
                 this.character = res.data
+                this.image = this.character.image_name
             }).catch(error => {
                 alert('キャラクターの取得に失敗しました')
             }).finally(resp => {
@@ -282,62 +278,29 @@ export default {
         onCreateUpdate () {
             if (this.is_update) {
                 console.log('true')
+                axios.put('/api/character/' + this.character_id, {
+                    character: this.character,
+                    upload_image: this.upload_image,
+                })
+                .then(res => {
+                    console.log(res.data)
+                }).catch(res => {
+                    alert('キャラクターの送信に失敗しました')
+                })
             } else {
-                // body = {
-                //     character: this.character,
-                //     upload_image: this.upload_image,
-                // }
                 console.log('false')
                 axios.post('/api/character', {
                     character: this.character,
                     upload_image: this.upload_image,
+                })
+                .then(res => {
+                    console.log(res.data)
                 }).catch(res => {
-                    alert('一覧の取得に失敗しました')
+                    alert('キャラクターの送信に失敗しました')
                 })
             }
         },
-        // onCreateUpdate () {
-        //     console.log('通過')
-        //     if (this.is_update) { // 編集
 
-        //     } else {              // 新規
-
-        //     }
-        //     // ２パターン
-        //     // １つ目
-        //     // 文字として送る（今までのやり方）
-        //     // 文字列型
-
-        //     const body = {
-        //         name: 'あああ',
-        //         id: '3',
-        //         upload_image: 'hjdviffwnjcipeq;rnio',
-        //     }
-        //     const body = new FormData()
-        //     body.append("name", 'あああ')
-        //     body.append("id", '3')
-        //     body.append("upload_image", upload_image)
-        //     $name = $request->file('upload_image')->store('public/update');
-        //     $parameter->image_name = $name
-        //     $parameter->save();
-        //     $request->input()->name
-        //     axios.post('api/user',body,headers)
-
-        //     // ２つ目
-        //     // 画像形式のまま送る
-        //     // ファイル型
-        //     // axiosにたいしてファイル型=form_dataで送るっていう指定をする
-        //     const headers = { "content-type": "multipart/form-data" }
-        //     axios.get(url,body,{ "content-type": "multipart/form-data" })
-        //     // http通信には↓のやつがある
-        //     // header
-        //     // body
-        //     // url
-        // },
-        // file: {
-        //     name: 'default.jpeg',
-        //     result: 'fjaijiefjeiojfsoafjioedjfoaefijeifjaf',
-        // },
         changeImage (file) {
             if (file !== undefined && file !== null) {
                 if (file.name.lastIndexOf('.') <= 0) {

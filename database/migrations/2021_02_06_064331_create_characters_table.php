@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 
 class CreateCharactersTable extends Migration
 {
@@ -17,7 +18,7 @@ class CreateCharactersTable extends Migration
             $table->id();
             $table->string('name')->comment('キャラクター名');
             $table->string('anime_title')->comment('出演作品名');
-            $table->text('image_name')->default('storage/images/default.jpg')->comment('画像名');
+            $table->text('image_name')->default('/storage/images/default.jpeg')->comment('画像名');
             $table->string('character_voice')->default('')->comment('声優');
             $table->string('gender')->comment('性別');
             $table->string('birthday')->default('')->comment('誕生日');
@@ -38,5 +39,6 @@ class CreateCharactersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('characters');
+        Storage::disk('public')->deletedirectory('uploads');
     }
 }

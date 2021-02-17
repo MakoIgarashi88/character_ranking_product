@@ -53,10 +53,11 @@ class CharacterController extends Controller
      */
     public function store(Request $request)
     {
-        $character = DB::transaction(function () use ($request) {
+        DB::transaction(function () use ($request) {
             $character = new Character;
             $character->name = $request->character['name'];
             $character->anime_title = $request->character['anime_title'];
+            $character->image_name = Character::imageStore($request->upload_image);
             $character->character_voice = $request->character['character_voice'];
             $character->gender = $request->character['gender'];
             $character->birthday = $request->character['birthday'];
@@ -65,16 +66,9 @@ class CharacterController extends Controller
             $character->height = $request->character['height'];
             $character->weight = $request->character['weight'];
             $character->detail = $request->character['detail'];
-            if ($request->upload_image) {
-                $character->image_name = $request->upload_image;
-            }
             
             $character->save();
-
-            return $character;
         });
-
-        return $character;
     }
 
     /**
@@ -97,7 +91,23 @@ class CharacterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        DB::transaction(function () use ($request, $id) {
+            $character = Character::find($id);
+            $character->name = $request->character['name'];
+            $character->anime_title = $request->character['anime_title'];
+            $character->image_name = Character::imageStore($request->upload_image, $character->image_name);
+            $character->character_voice = $request->character['character_voice'];
+            $character->gender = $request->character['gender'];
+            $character->birthday = $request->character['birthday'];
+            $character->age = $request->character['age'];
+            $character->blood_type = $request->character['blood_type'];
+            $character->height = $request->character['height'];
+            $character->weight = $request->character['weight'];
+            $character->detail = $request->character['detail'];
+            
+            $character->save();
+        });
+        return $request->upload_image;
     }
 
     /**
