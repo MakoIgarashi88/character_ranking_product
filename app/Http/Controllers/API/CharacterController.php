@@ -19,30 +19,23 @@ class CharacterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
+        $query = Character::query();
+        
+        if ($request->search_word) {
+            $string  = preg_replace("/( |　)/", " ", $request->search_word);
+            $search_words = explode(" ", $string);
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function searchList()
-    {
-        $characters = Character::all();
+            foreach ($search_words as $word) {
+                $query->orWhereRaw("name like ?", '%'.$word.'%');
+                $query->orWhereRaw("anime_title like ?", '%'.$word.'%');
+            }
+        }
+
+        $characters = $query->get();
+
         return CharacterCardResource::collection($characters);
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function search(Request $request)
-    {
-        $characters = Character::where('name', $request->word)->get();
-        return ($characters);
     }
 
     /**

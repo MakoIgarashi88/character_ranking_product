@@ -18,8 +18,5 @@ export default {
             src_copy: '/storage/images/default.png',
         }
     },
-    // watch: {
-    //     src_copy = src,
-    // }
 }
 </script>

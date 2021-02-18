@@ -1,24 +1,27 @@
 <template>
     <v-container>
-        <v-row justify="center">
-            <v-col cols="12" sm="10" md="8">
-                <v-text-field
-                v-model="word"
-                background-color="white"
-                append-outer-icon='mdi-send'
-                filled
-                clear-icon="mdi-close-circle"
-                clearable
-                type="text"
-                @click:append-outer="onSearch"
-                @click:clear="clearMessage"
-                ></v-text-field>
-            </v-col>
-        </v-row>
-        <v-row justify="end">
-        </v-row>
-        <v-row justify="center">
-            <v-col cols="10" sm="3" lg="2" v-for="(character, index) in characters" :key="index">
+        <v-form @submit.prevent="getCharacters">
+            <v-row justify="center" class="align-center mb-5">
+                <v-col cols="auto">
+                    <v-text-field
+                    v-model="search_word"
+                    label="キーワードで検索"
+                    background-color="white"
+                    filled
+                    clear-icon="mdi-close-circle"
+                    clearable
+                    type="text"
+                    hide-details
+                    @click:clear="clearMessage"
+                    ></v-text-field>
+                </v-col>
+                <v-col cols="auto">
+                    <v-btn type="submit" color="primary"><v-icon>mdi-magnify</v-icon></v-btn>
+                </v-col>
+            </v-row>
+        </v-form>
+        <v-row>
+            <v-col cols="12" sm="4" md="3" lg="2" v-for="(character, index) in characters" :key="index">
                 <CharaCard :character="character" />
             </v-col>
         </v-row>
@@ -29,7 +32,7 @@
 export default {
     data () {
         return {
-            word: '',
+            search_word: '',
             characters: [],
         }
     },
@@ -38,16 +41,10 @@ export default {
     },
     methods: {
         getCharacters () {
-            axios.get('/api/character/list')
-            .then(res => {
-                this.characters = res.data
-            }).catch(error => {
-                alert(error)
-            })
-        },
-        onSearch () {
-            axios.post('/api/character/search', {
-                word: this.word
+            axios.get('/api/character', {
+                params: {
+                    search_word: this.search_word
+                }
             }).then(res => {
                 console.log(res.data)
                 this.characters = res.data
@@ -56,8 +53,7 @@ export default {
             })
         },
         clearMessage () {
-            this.word = ''
-            this.getCharacters ()
+            this.search_word = ''
         },
     },
 }
