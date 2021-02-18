@@ -6,10 +6,18 @@
                     <v-col cols="12" class="text-center pa-5">
                         <h2>{{ name }}ランキング</h2>
                     </v-col>
-                    <v-col cols="auto" class="text-center pa-1" v-for="(item, index) in items" :key="index">
-                        <span>{{ item.label }}</span>
+                    <v-col cols="12" class="text-center pa-1">
+                        <v-chip v-for="(item, index) in items"
+                        :key="index"
+                        text-color="white"
+                        :color="item.color"
+                        class="ma-1">
+                        {{ item.label }}
+                        </v-chip>
                     </v-col>
-                    <p>が高い順でランキングされています</p>
+                    <v-col cols="12" class="text-center">
+                        <p>が高い順でランキングされています</p>
+                    </v-col>
                 </v-row>
                 <v-row>
                     <v-col cols="12" sm="4" md="3" lg="2" class="text-center mt-4" v-for="(character, index) in characters" :key="index">

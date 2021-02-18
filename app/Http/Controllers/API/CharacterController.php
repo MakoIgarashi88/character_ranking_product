@@ -21,6 +21,10 @@ class CharacterController extends Controller
      */
     public function index(Request $request)
     {
+        $countPerPage = 12;                // 1ページあたりの件数
+        $page = $request->page;            // 現在のページ
+        $offset = ($page-1)*$countPerPage; // 何件目から
+
         $query = Character::query();
         
         if ($request->search_word) {
@@ -33,9 +37,15 @@ class CharacterController extends Controller
             }
         }
 
-        $characters = $query->get();
+        // 絞り込まれたキャラクターの件数
+        $characters_count = $query->count();
+        $characters = $query->offset($offset)->limit($countPerPage)->get();
+        $pageLength = ceil($characters_count / $countPerPage);
 
-        return CharacterCardResource::collection($characters);
+        return response()->json([
+            'characters' => CharacterCardResource::collection($characters),
+            'pageLength' => $pageLength,
+        ]);
     }
 
     /**

@@ -116,8 +116,7 @@ class RankingController extends Controller
         // ランキングを構成しているパラメーター（かわいいなど）を取得
         $items = Item::join('parameter_labels', 'items.name', '=', 'parameter_labels.key_name')
             ->where('items.ranking_id', $id)
-            ->get('parameter_labels.label');
-            logger($items);
+            ->get(['parameter_labels.label', 'parameter_labels.color']);
 
         return response()->json([
             'ranking' => new RankingResource($ranking),
