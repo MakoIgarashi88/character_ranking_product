@@ -133,7 +133,6 @@ export default {
                     { text: '体重', name: this.character.weight },
                 ]
                 this.parameters = res2.data
-                console.log(this.character)
             })).catch(error => {
                 alert('キャラクターの取得に失敗しました')
             }).finally(resp => {

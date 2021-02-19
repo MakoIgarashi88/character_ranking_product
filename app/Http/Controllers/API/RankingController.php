@@ -64,7 +64,7 @@ class RankingController extends Controller
      */
     public function store(Request $request)
     {
-        DB::transaction(function () use ($request) {
+        return DB::transaction(function () use ($request) {
             $ranking = new Ranking;
             $ranking->name = $request->ranking_name;
             $ranking->save();
@@ -75,6 +75,7 @@ class RankingController extends Controller
                 $item->name = $param;
                 $item->save();
             };
+            return $ranking;
         });
     }
 

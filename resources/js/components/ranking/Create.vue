@@ -2,11 +2,13 @@
     <v-container>
         <v-card>
             <v-row justify="center">
-                <v-col cols="10" class="text-center">
+                <v-col cols="10" class="text-center pt-5">
                     <v-text-field
                     label="ランキング名"
                     outlined
                     v-model="ranking_name"
+                    suffix="ランキング"
+                    hide-details
                     :error-messages="ranking_name.length >= 20 ? '20文字以内で入力してください' : ''"
                     ></v-text-field>
                 </v-col>
@@ -76,6 +78,7 @@ export default {
                 alert('ランキングを作成しました')
                 this.ranking_name = ""
                 this.check_parameters = []
+                this.$router.push({ path: '/ranking/' + res.data.id })
             }).catch(res => {
                 alert('コメントの取得に失敗しました')
             })

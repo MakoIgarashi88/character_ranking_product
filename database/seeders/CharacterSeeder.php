@@ -20,7 +20,7 @@ class CharacterSeeder extends Seeder
         $model->image_name = '/storage/images/02.jpeg';
         $model->character_voice = '岡本信彦';
         $model->gender = '男性';
-        $model->birthday = '04/20';
+        $model->birthday = '4/20';
         $model->age = '16歳';
         $model->blood_type = '不明';
         $model->height = '172cm';
@@ -34,7 +34,7 @@ class CharacterSeeder extends Seeder
         $model->image_name = '/storage/images/03.jpg';
         $model->character_voice = '早見沙織';
         $model->gender = '女性';
-        $model->birthday = '02/24';
+        $model->birthday = '2/24';
         $model->age = '18歳';
         $model->blood_type = '不明';
         $model->height = '151cm';
@@ -48,7 +48,7 @@ class CharacterSeeder extends Seeder
         $model->image_name = '/storage/images/04.jpg';
         $model->character_voice = '瀬戸麻沙美';
         $model->gender = '女性';
-        $model->birthday = '08/07';
+        $model->birthday = '8/7';
         $model->age = '16歳';
         $model->blood_type = '不明';
         $model->height = '160cm未満';

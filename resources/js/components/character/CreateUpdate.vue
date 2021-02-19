@@ -70,7 +70,7 @@
                                     <v-col cols="9">
                                         <v-text-field
                                         label="性別"
-                                        :placeholder="is_update ? '' : '例：女/男/なし'"
+                                        :placeholder="is_update ? '' : '例：女性/男性/なし'"
                                         :rules="genderRules"
                                         v-model="character.gender"
                                         outlined
@@ -89,7 +89,7 @@
                                     <v-col>
                                         <v-text-field
                                         label="誕生日"
-                                        :placeholder="is_update ? '' : '例：1月1日'"
+                                        :placeholder="is_update ? '' : '例：1/31'"
                                         :rules="birthdayRules"
                                         v-model="character.birthday"
                                         outlined
@@ -127,7 +127,7 @@
                                     <v-col>
                                         <v-text-field
                                         label="血液型"
-                                        :placeholder="is_update ? '' : '例：A型 B型 O型 AB型 X型'"
+                                        :placeholder="is_update ? '' : '例：A型 X型'"
                                         :rules="bloodTypeRules"
                                         v-model="character.blood_type"
                                         outlined
@@ -267,34 +267,32 @@ export default {
     methods: {
         getItems () {
             axios.get('/api/character/' + this.character_id)
-                .then(res => {
+            .then(res => {
                 this.character = res.data
                 this.image = this.character.image_name
+                console.log(this.character)
             }).catch(error => {
                 alert('キャラクターの取得に失敗しました')
-            }).finally(resp => {
             })
         },
         onCreateUpdate () {
             if (this.is_update) {
-                console.log('true')
                 axios.put('/api/character/' + this.character_id, {
                     character: this.character,
                     upload_image: this.upload_image,
                 })
                 .then(res => {
-                    console.log(res.data)
+                    this.$router.push({ path: '/character/' + this.character_id })
                 }).catch(res => {
                     alert('キャラクターの送信に失敗しました')
                 })
             } else {
-                console.log('false')
                 axios.post('/api/character', {
                     character: this.character,
                     upload_image: this.upload_image,
                 })
                 .then(res => {
-                    console.log(res.data)
+                    this.$router.push({ path: '/character/' + res.data.id })
                 }).catch(res => {
                     alert('キャラクターの送信に失敗しました')
                 })

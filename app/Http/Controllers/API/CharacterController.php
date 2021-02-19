@@ -56,7 +56,7 @@ class CharacterController extends Controller
      */
     public function store(Request $request)
     {
-        DB::transaction(function () use ($request) {
+        return DB::transaction(function () use ($request) {
             $character = new Character;
             $character->name = $request->character['name'];
             $character->anime_title = $request->character['anime_title'];
@@ -71,6 +71,8 @@ class CharacterController extends Controller
             $character->detail = $request->character['detail'];
             
             $character->save();
+
+            return $character;
         });
     }
 
@@ -110,7 +112,6 @@ class CharacterController extends Controller
             
             $character->save();
         });
-        return $request->upload_image;
     }
 
     /**
