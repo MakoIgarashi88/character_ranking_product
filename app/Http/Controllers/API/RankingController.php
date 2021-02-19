@@ -84,7 +84,7 @@ class RankingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $ranking = Ranking::find($id);
         $columns = Item::where('ranking_id', $id)->get()->pluck('name');
@@ -100,17 +100,25 @@ class RankingController extends Controller
 
         // カラムごとの合計を、カラム名をキーとして配列に追加
         foreach ($columns as $column) {
-            $query->selectRaw("round(avg($column)) as $column");
+            $query->selectRaw("round(avg($column),1) as $column");
         }
         
         // キャラクターごとにまとめて、pointを昇順整列
         $characters = $query->groupBy($character_columns)->orderBy('point', 'desc')->get();
-
         $points = $characters->pluck('point');
 
+        // ページネーション
+        $characters_count = count($characters);     // ヒットしたキャラクターの件数
+        $countPerPage = 12;                         // 1ページあたりの件数
+        $page = $request->page;                     // 現在のページ
+
+        // 絞り込まれたキャラクターの件数
+        $characters = $characters->forPage($page, $countPerPage)->all();
+        $pageLength = ceil($characters_count / $countPerPage);
+
         // ランキングキーを作成し、ランキングを付ける
-        foreach($points as $index => $point) {
-            $characters[$index]['rank'] = Ranking::getRank($index, $points);
+        foreach ($characters as $index => $character) {
+            $character['rank'] = Ranking::getRank($index, $points);
         }
 
         // ランキングを構成しているパラメーター（かわいいなど）を取得
@@ -122,6 +130,7 @@ class RankingController extends Controller
             'ranking' => new RankingResource($ranking),
             'characters' => $characters,
             'items' => $items,
+            'pageLength' => $pageLength,
         ]);
     }
 

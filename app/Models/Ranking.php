@@ -37,7 +37,7 @@ class Ranking extends Model
     {
         $string = '';
         foreach ($columns as $index => $column) {
-            $string .= $index ? "+ round(avg($column))" : "round(avg($column))";
+            $string .= $index ? "+ round(avg($column),1)" : "round(avg($column),1)";
         }
 
         return $string;

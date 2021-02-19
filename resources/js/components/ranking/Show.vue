@@ -19,10 +19,20 @@
                         <p>が高い順でランキングされています</p>
                     </v-col>
                 </v-row>
+                <v-row v-show="pageLength">
+                    <v-col cols="12" class="justify-center">
+                        <v-pagination v-model="page" :length="pageLength" circle></v-pagination>
+                    </v-col>
+                </v-row>
                 <v-row>
                     <v-col cols="12" sm="4" md="3" lg="2" class="text-center mt-4" v-for="(character, index) in characters" :key="index">
                         <span>{{ character.rank }}位</span>
                         <CharaCard :character="character" />
+                    </v-col>
+                </v-row>
+                <v-row v-show="pageLength">
+                    <v-col cols="12" class="justify-center">
+                        <v-pagination v-model="page" :length="pageLength" circle></v-pagination>
                     </v-col>
                 </v-row>
             </v-col>
@@ -36,6 +46,8 @@ export default {
     data () {
         return {
             name: '',
+            page: 1,
+            pageLength: 0,
             characters: [],
             items: [],
         }
@@ -45,20 +57,30 @@ export default {
     },
     methods: {
         getRanking () {
-            axios.get('/api/ranking/' + this.ranking_id)
+            axios.get('/api/ranking/' + this.ranking_id, {
+                params: {
+                    page: this.page,
+                }
+            })
             .then(res => {
                 this.name = res.data.ranking.name,
                 this.characters = res.data.characters,
                 this.items = res.data.items,
+                this.pageLength = res.data.pageLength,
                 console.log(res.data)
             }).catch(res => {
-                alert('コメントの取得に失敗しました')
+                alert('キャラクターの取得に失敗しました')
             })
         }
     },
     computed: {
         $rank () {
             return 
+        }
+    },
+    watch: {
+        page () {
+            this.getRanking()
         }
     }
 }
