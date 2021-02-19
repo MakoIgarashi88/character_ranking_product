@@ -21,6 +21,7 @@
                 {{ character.anime_title }}
             </v-col>
         </v-row>
+        <RadarChart :chart-data="chartdata" />
     </v-card>
 </template>
 
@@ -28,11 +29,31 @@
 export default {
     props: {
         character: Object,
+        items: Array,
+    },
+    mounted () {
+        this.fillData()
     },
     data() {
         return {
-
+            chartdata: {}
         }
     },
+    methods: {
+        fillData () {
+            const labels = this.items.map(item => item.label)
+            const points = this.items.map(item => this.character[item.name])
+            this.chartdata = {
+                labels: labels,
+                datasets: [
+                    {
+                        data: points,
+                        borderColor: "rgb(255,239,148,0.7)",
+                        backgroundColor:"rgba(255,239,148,0.3)",
+                    }
+                ],
+            }
+        }
+    }
 }
 </script>

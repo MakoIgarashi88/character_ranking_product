@@ -5,7 +5,7 @@
                 <h1>新着ランキング</h1>
             </v-col>
         </v-row>
-        <div v-for="(ranking, index) in rankings" :key="index">
+        <div v-for="(ranking, index) in rankings" :key="index" class="py-5 my-5">
             <v-row class="justify-center">
                 <v-col cols="auto" class="pa-5">
                     <router-link :to="{ path: 'ranking/' + ranking.id }">
@@ -14,8 +14,8 @@
                 </v-col>
             </v-row>
             <v-row justify="center">
-                <v-col cols="10" sm="3" lg="2" v-for="(character, index) in ranking.characters" :key="index">
-                    <CharaCard :character="character" />
+                <v-col cols="12" sm="6" md="3" v-for="(character, index) in ranking.characters" :key="index">
+                    <CharaCard :character="character" :items="ranking.items"/>
                 </v-col>
             </v-row>
         </div>

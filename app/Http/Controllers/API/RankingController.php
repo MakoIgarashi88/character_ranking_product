@@ -24,7 +24,13 @@ class RankingController extends Controller
     {
         $rankings = Ranking::orderBy('id', 'desc')->take(5)->get(['id', 'name']);
         foreach ($rankings as $ranking) {
-            $columns = Item::where('ranking_id', $ranking->id)->get()->pluck('name');
+            // ランキングを構成しているパラメーター（かわいいなど）を取得
+            $items = Item::join('parameter_labels', 'items.name', '=', 'parameter_labels.key_name')
+                ->where('items.ranking_id', $ranking->id)
+                ->get(['parameter_labels.label', 'parameter_labels.color', 'items.name']);
+
+            $columns = $items->pluck('name');
+
             $character_columns = ['characters.id', 'characters.name', 'characters.anime_title', 'characters.image_name'];
     
             // parameterテーブルとcharacterテーブルを結合
@@ -51,6 +57,7 @@ class RankingController extends Controller
             }
 
             $ranking['characters'] = $characters;
+            $ranking['items'] = $items;
         }
 
         return $rankings;
@@ -125,7 +132,7 @@ class RankingController extends Controller
         // ランキングを構成しているパラメーター（かわいいなど）を取得
         $items = Item::join('parameter_labels', 'items.name', '=', 'parameter_labels.key_name')
             ->where('items.ranking_id', $id)
-            ->get(['parameter_labels.label', 'parameter_labels.color']);
+            ->get(['parameter_labels.label', 'parameter_labels.color', 'items.name']);
 
         return response()->json([
             'ranking' => new RankingResource($ranking),

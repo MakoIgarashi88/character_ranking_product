@@ -27,6 +27,7 @@ Vue.use(VueRouter);
 
 // グローバルコンポーネント
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('RadarChart', require('./components/commons/RadarChart.vue').default);
 Vue.component('main-component', require('./components/MainComponent.vue').default);
 Vue.component('IconLg', require('./components/commons/icons/IconLg.vue').default);
 Vue.component('IconSm', require('./components/commons/icons/IconSm.vue').default);

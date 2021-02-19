@@ -25,13 +25,13 @@
                     </v-col>
                 </v-row>
                 <v-row>
-                    <v-col cols="12" sm="4" md="3" lg="2" class="text-center mt-4" v-for="(character, index) in characters" :key="index">
+                    <v-col cols="12" sm="6" md="4" lg="3" class="text-center mt-4" v-for="(character, index) in characters" :key="index">
                         <span>{{ character.rank }}位</span>
-                        <CharaCard :character="character" />
+                        <CharaCard :character="character" :items="items"/>
                     </v-col>
                 </v-row>
                 <v-row v-show="pageLength">
-                    <v-col cols="12" class="justify-center">
+                    <v-col cols="12" class="justify-center mt-5">
                         <v-pagination v-model="page" :length="pageLength" circle></v-pagination>
                     </v-col>
                 </v-row>
@@ -64,13 +64,11 @@ export default {
                 params: {
                     page: this.page,
                 }
-            })
-            .then(res => {
-                this.name = res.data.ranking.name,
-                this.characters = res.data.characters,
-                this.items = res.data.items,
-                this.pageLength = res.data.pageLength,
-                console.log(res.data)
+            }).then(res => {
+                this.name = res.data.ranking.name
+                this.characters = res.data.characters
+                this.items = res.data.items
+                this.pageLength = res.data.pageLength
             }).catch(res => {
                 alert('キャラクターの取得に失敗しました')
             }).finally(res => {
