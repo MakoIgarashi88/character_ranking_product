@@ -97,6 +97,7 @@
                 </v-card>
             </v-col>
         </v-row>
+        <Loading :isLoading="isLoading"/>
     </v-container>
 </template>
 
@@ -110,6 +111,7 @@ export default {
             items: [],
             comments: [],
             parameters: [],
+            isLoading: false,
         }
     },
     mounted () {
@@ -117,6 +119,7 @@ export default {
     },
     methods: {
         getCharacter () {
+            this.isLoading = true
             const api = axios.create()
             axios.all([
                 api.get('/api/character/' + this.character_id),
@@ -136,6 +139,7 @@ export default {
             })).catch(error => {
                 alert('キャラクターの取得に失敗しました')
             }).finally(resp => {
+                this.isLoading = false
             })
         },
     }

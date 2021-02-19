@@ -37,6 +37,7 @@
                 </v-row>
             </v-col>
         </v-row>
+        <Loading :isLoading="isLoading"/>
     </v-container>
 </template>
 
@@ -50,6 +51,7 @@ export default {
             pageLength: 0,
             characters: [],
             items: [],
+            isLoading: false,
         }
     },
     mounted () {
@@ -57,6 +59,7 @@ export default {
     },
     methods: {
         getRanking () {
+            this.isLoading = true
             axios.get('/api/ranking/' + this.ranking_id, {
                 params: {
                     page: this.page,
@@ -70,6 +73,8 @@ export default {
                 console.log(res.data)
             }).catch(res => {
                 alert('キャラクターの取得に失敗しました')
+            }).finally(res => {
+                this.isLoading = false
             })
         }
     },

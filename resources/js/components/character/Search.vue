@@ -1,5 +1,10 @@
 <template>
     <v-container>
+        <v-row justify="center">
+            <v-col class="text-center">
+                <h1>キャラクター検索</h1>
+            </v-col>
+        </v-row>
         <v-form @submit.prevent="onSearch">
             <v-row justify="center" class="align-center mb-5">
                 <v-col cols="10" sm="6">
@@ -37,6 +42,7 @@
                 <v-pagination v-model="page" :length="pageLength" circle></v-pagination>
             </v-col>
         </v-row>
+        <Loading :isLoading="isLoading"/>
     </v-container>
 </template>
 
@@ -48,6 +54,7 @@ export default {
             page: 1,
             pageLength: 0,
             characters: [],
+            isLoading: false,
         }
     },
     mounted () {
@@ -55,6 +62,7 @@ export default {
     },
     methods: {
         getCharacters () {
+            this.isLoading = true
             axios.get('/api/character', {
                 params: {
                     search_word: this.search_word,
@@ -66,6 +74,8 @@ export default {
                 this.pageLength = res.data.pageLength
             }).catch(error => {
                 alert(error)
+            }).finally(res => {
+                this.isLoading = false
             })
         },
         onSearch () {

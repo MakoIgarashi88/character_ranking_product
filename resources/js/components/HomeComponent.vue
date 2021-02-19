@@ -19,6 +19,7 @@
                 </v-col>
             </v-row>
         </div>
+        <Loading :isLoading="isLoading"/>
     </v-container>
 </template>
 
@@ -27,6 +28,7 @@ export default {
     data () {
         return {
             rankings: [],
+            isLoading: false,
         }
     },
     mounted () {
@@ -34,16 +36,17 @@ export default {
     },
     methods: {
         getItems () {
+            this.isLoading = true
             axios.get('/api/ranking')
             .then(res => {
                 this.rankings = res.data
             }).catch(error => {
                 alert(error)
+            }).finally(res => {
+                this.isLoading = false
             })
         }
     },
-    components: {
-    }
 }
 </script>
 <style lang="scss" scoped>

@@ -69,6 +69,7 @@
                 </v-card>
             </v-col>
         </v-row>
+        <Loading :isLoading="isLoading"/>
     </v-container>
 </template>
 
@@ -79,6 +80,7 @@ export default {
         return {
             character: {},
             parameters: [],
+            isLoading: false,
         }
     },
     mounted () {
@@ -86,6 +88,7 @@ export default {
     },
     methods: {
         getCharacter () {
+            this.isLoading = true
             const api = axios.create()
             axios.all([
             api.get('/api/character/' + this.character_id),
@@ -93,9 +96,14 @@ export default {
             ]).then(axios.spread((res,res2) => {
                 this.character = res.data
                 this.parameters = res2.data
-            }))
+            })).catch(error => {
+                alert('キャラクター情報の取得に失敗しました')
+            }).finally(res => {
+                this.isLoading = false
+            })
         },
         onSend () {
+            this.isLoading = true
             console.log(this.parameters)
             axios.post('/api/parameter', {
                 character_id: this.character_id,
@@ -106,6 +114,7 @@ export default {
                 alert(error)
             }).finally(res => {
                 this.$router.go(-1)
+                this.isLoading = false
             })
         }
     }

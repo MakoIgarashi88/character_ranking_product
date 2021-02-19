@@ -70,6 +70,7 @@
                 <v-pagination v-model="page" :length="pageLength" circle></v-pagination>
             </v-col>
         </v-row>
+        <Loading :isLoading="isLoading"/>
     </v-container>
 </template>
 
@@ -81,6 +82,7 @@ export default {
             search_word: "",
             page: 1,
             pageLength: 0,
+            isLoading: false,
         }
     },
     mounted () {
@@ -88,6 +90,7 @@ export default {
     },
     methods: {
         getRankings () {
+            this.isLoading = true
             axios.get('/api/ranking/list', {
                 params: {
                     search_word: this.search_word,
@@ -98,6 +101,8 @@ export default {
                 this.pageLength = res.data.pageLength
             }).catch(res => {
                 alert('一覧の取得に失敗しました')
+            }).finally(res => {
+                this.isLoading = false
             })
         },
         onSearch () {

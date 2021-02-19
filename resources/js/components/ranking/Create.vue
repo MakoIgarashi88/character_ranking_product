@@ -46,6 +46,7 @@
                 </v-col>
             </v-row>
         </v-card>
+        <Loading :isLoading="isLoading"/>
     </v-container>
 </template>
 
@@ -56,6 +57,7 @@ export default {
             ranking_name: "",
             check_parameters: [],
             params: [],
+            isLoading: false,
         }
     },
     mounted () {
@@ -63,14 +65,18 @@ export default {
     },
     methods: {
         getItems () {
+            this.isLoading = true
             axios.get('/api/parameter_label')
             .then(res => {
                 this.params = res.data
             }).catch(error => {
                 alert(error)
+            }).finally(res => {
+                this.isLoading = false
             })
         },
         onStore () {
+            this.isLoading = true
             axios.post('/api/ranking/', {
                 ranking_name: this.ranking_name,
                 check_parameters: this.check_parameters,
@@ -79,6 +85,7 @@ export default {
                 this.ranking_name = ""
                 this.check_parameters = []
                 this.$router.push({ path: '/ranking/' + res.data.id })
+                this.isLoading = false
             }).catch(res => {
                 alert('コメントの取得に失敗しました')
             })

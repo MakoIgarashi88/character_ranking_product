@@ -203,6 +203,7 @@
                 </v-card>
             </v-col>
         </v-row>
+        <Loading :isLoading="isLoading"/>
     </v-container>
 </template>
 
@@ -215,6 +216,8 @@ export default {
             character: {},
             image: '/storage/images/default.jpeg',
             upload_image: null,
+            isLoading: false,
+
             nameRules: [
                 v => !!v || '必須入力',
                 v => (v && v.length <= 20) || '20文字以内で入力してください',
@@ -266,6 +269,7 @@ export default {
     },
     methods: {
         getItems () {
+            this.isLoading = true
             axios.get('/api/character/' + this.character_id)
             .then(res => {
                 this.character = res.data
@@ -273,26 +277,34 @@ export default {
                 console.log(this.character)
             }).catch(error => {
                 alert('キャラクターの取得に失敗しました')
+            }).finally(res => {
+                this.isLoading = false
             })
         },
         onCreateUpdate () {
             if (this.is_update) {
+                this.isLoading = true
                 axios.put('/api/character/' + this.character_id, {
                     character: this.character,
                     upload_image: this.upload_image,
                 })
                 .then(res => {
+                    alert('キャラクター情報を編集しました')
                     this.$router.push({ path: '/character/' + this.character_id })
+                    this.isLoading = false
                 }).catch(res => {
                     alert('キャラクターの送信に失敗しました')
                 })
             } else {
+                this.isLoading = true
                 axios.post('/api/character', {
                     character: this.character,
                     upload_image: this.upload_image,
                 })
                 .then(res => {
+                    alert('キャラクターを作成しました')
                     this.$router.push({ path: '/character/' + res.data.id })
+                    this.isLoading = false
                 }).catch(res => {
                     alert('キャラクターの送信に失敗しました')
                 })
