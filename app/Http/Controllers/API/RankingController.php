@@ -161,10 +161,39 @@ class RankingController extends Controller
     /**
      * ランキングのidとランキング名を取得,ランキング一覧ページ
      */
-    public function list()
+    public function list(Request $request)
     {
-        $rankings = Ranking::all();
-        return $rankings;
+        $search_word  = $request->search_word;    // 検索ワード
+        $page         = $request->page;           // 現在のページ
+        $countPerPage = 10;                       // 1ページあたりの件数
+        $offset       = ($page-1)*$countPerPage;  // 何件目から
+        
+        $query = Ranking::select('id', 'name');
+
+        if ($search_word) {
+            $string  = preg_replace("/( |　)/", " ", $search_word);
+            $search_words = explode(" ", $string);
+
+            foreach ($search_words as $word) {
+                $query->orWhereRaw("name like ?", '%'.$word.'%');
+            }
+        }
+
+        $ranking_count = $query->count();
+        $pageLength    = ceil($ranking_count / $countPerPage);
+        $rankings      = $query->offset($offset)->limit($countPerPage)->get();
+
+        foreach ($rankings as $ranking) {
+            $ranking["params"] = Item::select('parameter_labels.label', 'parameter_labels.color')
+                ->join('parameter_labels', 'items.name', '=', 'parameter_labels.key_name')
+                ->where('items.ranking_id', $ranking->id)
+                ->get();
+        }
+
+        return response()->json([
+            'rankings' => $rankings,
+            'pageLength' => $pageLength,
+        ]);
     }
 
     /**
