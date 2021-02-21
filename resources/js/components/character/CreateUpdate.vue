@@ -274,7 +274,6 @@ export default {
             .then(res => {
                 this.character = res.data
                 this.image = this.character.image_name
-                console.log(this.character)
             }).catch(error => {
                 alert('キャラクターの取得に失敗しました')
             }).finally(res => {
@@ -289,9 +288,7 @@ export default {
                     upload_image: this.upload_image,
                 })
                 .then(res => {
-                    alert('キャラクター情報を編集しました')
                     this.$router.push({ path: '/character/' + this.character_id })
-                    this.isLoading = false
                 }).catch(res => {
                     alert('キャラクターの送信に失敗しました')
                 })
@@ -302,7 +299,6 @@ export default {
                     upload_image: this.upload_image,
                 })
                 .then(res => {
-                    alert('キャラクターを作成しました')
                     this.$router.push({ path: '/character/' + res.data.id })
                     this.isLoading = false
                 }).catch(res => {

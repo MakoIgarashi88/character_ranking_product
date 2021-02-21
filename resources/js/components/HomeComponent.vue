@@ -14,8 +14,9 @@
                 </v-col>
             </v-row>
             <v-row justify="center">
-                <v-col cols="12" sm="6" md="3" v-for="(character, index) in ranking.characters" :key="index">
-                    <CharaCard :character="character" :items="ranking.items"/>
+                <v-col cols="12" sm="6" md="3" class="text-center mt-4" v-for="(character, index) in ranking.characters" :key="index">
+                    <span>{{ character.rank }}位</span>
+                    <CharaCard :character="character" :items="ranking.items" chart/>
                 </v-col>
             </v-row>
         </div>

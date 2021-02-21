@@ -104,12 +104,11 @@ export default {
         },
         onSend () {
             this.isLoading = true
-            console.log(this.parameters)
             axios.post('/api/parameter', {
                 character_id: this.character_id,
                 parameters: this.parameters,
             }).then(res => {
-                alert('投票されました')
+                alert('投票が完了しました！')
             }).catch(error => {
                 alert(error)
             }).finally(res => {

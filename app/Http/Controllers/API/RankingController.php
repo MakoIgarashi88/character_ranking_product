@@ -43,7 +43,7 @@ class RankingController extends Controller
 
             // カラムごとの平均を、カラム名をキーとして配列に追加
             foreach ($columns as $column) {
-                $query->selectRaw("round(avg($column)) as $column");
+                $query->selectRaw("round(avg($column),1) as $column");
             }
             
             // キャラクターごとにまとめて、pointを昇順整列

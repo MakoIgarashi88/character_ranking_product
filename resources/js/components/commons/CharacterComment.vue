@@ -71,7 +71,6 @@ export default {
                 character_id: this.character_id,
                 message: this.message,
             }).then(res => {
-                console.log(res.data)
                 this.comments.unshift(res.data)
                 this.message = ""
             })

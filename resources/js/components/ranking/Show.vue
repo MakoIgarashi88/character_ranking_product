@@ -27,7 +27,7 @@
                 <v-row>
                     <v-col cols="12" sm="6" md="4" lg="3" class="text-center mt-4" v-for="(character, index) in characters" :key="index">
                         <span>{{ character.rank }}位</span>
-                        <CharaCard :character="character" :items="items"/>
+                        <CharaCard :character="character" :items="items" chart />
                     </v-col>
                 </v-row>
                 <v-row v-show="pageLength">

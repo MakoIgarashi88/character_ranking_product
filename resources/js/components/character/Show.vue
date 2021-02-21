@@ -45,34 +45,19 @@
 
                             <!--パラメータ-->
                             <v-row justify="center">
-                                <v-col class="text-center">
-                                    <h3>パラメーター</h3>
+                                <v-col class="text-center py-5">
+                                    <h2>パラメーター</h2>
                                 </v-col>
                             </v-row>
-                            <v-simple-table>
-                                <template v-slot:default>
-                                    <tbody>
-                                        <tr
-                                        v-for="item in parameters"
-                                        :key="item.label"
-                                        >
-                                            <td>{{ item.label }}</td>
-                                            <td>
-                                                <v-rating
-                                                color="primary"
-                                                background-color="grey"
-                                                empty-icon="mdi-star-outline"
-                                                full-icon="mdi-star"
-                                                hover
-                                                length="5"
-                                                :value="item.value"
-                                                readonly
-                                                ></v-rating>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </template>
-                            </v-simple-table>
+
+                            <v-row><v-col><h3 class="text-center py-3">雰囲気</h3></v-col></v-row>
+                            <RadarChart :chart-data="mood_chartdata"/>
+                            <v-row><v-col><h3 class="text-center py-3">性格</h3></v-col></v-row>
+                            <RadarChart :chart-data="personal_chartdata"/>
+                            <v-row><v-col><h3 class="text-center py-3">戦闘力</h3></v-col></v-row>
+                            <RadarChart :chart-data="power_chartdata"/>
+                            <v-row><v-col><h3 class="text-center py-3">知性</h3></v-col></v-row>
+                            <RadarChart :chart-data="intelligence_chartdata"/>
 
                             <v-row justify="center">
                                 <v-col>
@@ -110,8 +95,11 @@ export default {
             rating: 1,
             items: [],
             comments: [],
-            parameters: [],
             isLoading: false,
+            mood_chartdata: {},
+            personal_chartdata: {},
+            power_chartdata: {},
+            intelligence_chartdata: {},
         }
     },
     mounted () {
@@ -135,12 +123,39 @@ export default {
                     { text: '身長', name: this.character.height },
                     { text: '体重', name: this.character.weight },
                 ]
-                this.parameters = res2.data
+                this.fillData(res2.data)
             })).catch(error => {
                 alert('キャラクターの取得に失敗しました')
             }).finally(resp => {
                 this.isLoading = false
             })
+        },
+        fillData (parameters) {
+            const bdColor = "rgb(255,239,148,0.7)"
+            const bgColor = "rgba(255,239,148,0.3)"
+            const chunk_labels = parameters.map(chunks => {
+                return chunks.map(parameter => parameter.label)
+            })
+            const chunk_points = parameters.map(chunks => {
+                return chunks.map(parameter => parameter.value)
+            })
+
+            this.mood_chartdata = {
+                labels: chunk_labels[0],
+                datasets: [{ data: chunk_points[0], borderColor: bdColor, backgroundColor: bgColor }],
+            }
+            this.personal_chartdata = {
+                labels: chunk_labels[1],
+                datasets: [{ data: chunk_points[1], borderColor: bdColor, backgroundColor: bgColor }],
+            }
+            this.power_chartdata = {
+                labels: chunk_labels[2],
+                datasets: [{ data: chunk_points[2], borderColor: bdColor, backgroundColor: bgColor }],
+            }
+            this.intelligence_chartdata = {
+                labels: chunk_labels[3],
+                datasets: [{ data: chunk_points[3], borderColor: bdColor, backgroundColor: bgColor }],
+            }
         },
     }
 }

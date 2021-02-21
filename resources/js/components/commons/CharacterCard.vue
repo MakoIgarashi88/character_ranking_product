@@ -21,7 +21,15 @@
                 {{ character.anime_title }}
             </v-col>
         </v-row>
-        <RadarChart :chart-data="chartdata" />
+        <RadarChart :chart-data="chartdata" v-if="chart && items.length > 2" />
+        <div v-else-if="chart && items.length <= 2">
+            <v-row>
+                <v-col v-for="(param, index) in params" :key="index"  class="px-1">
+                    <h3>{{ param.label }}</h3>
+                    <h3>{{ param.point }}</h3>
+                </v-col>
+            </v-row>
+        </div>
     </v-card>
 </template>
 
@@ -30,13 +38,17 @@ export default {
     props: {
         character: Object,
         items: Array,
+        chart: {
+            type: Boolean,
+            default: false,
+        },
     },
     mounted () {
-        this.fillData()
+        if (this.chart) this.fillData()
     },
     data() {
         return {
-            chartdata: {}
+            chartdata: {},
         }
     },
     methods: {
@@ -53,6 +65,17 @@ export default {
                     }
                 ],
             }
+        }
+    },
+    computed: {
+        params () {
+            if (!this.items) return []
+            return this.items.map(item => {
+                return {
+                    label: item.label,
+                    point: this.character[item.name],
+                }
+            })
         }
     }
 }

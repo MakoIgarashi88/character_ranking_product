@@ -14,7 +14,7 @@ export default {
                 },
                 scale: {
                     pointLabels: {       // 軸のラベル（"国語"など）
-                        fontSize: 10,         // 文字の大きさ
+                        fontSize: 13,         // 文字の大きさ
                         fontColor: "gray"     // 文字の色
                     },
                     ticks: {             // 目盛り

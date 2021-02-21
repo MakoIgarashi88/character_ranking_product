@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import SearchCharacterCard from '../commons/SearchCharacterCard.vue'
 export default {
     data () {
         return {
@@ -69,7 +70,6 @@ export default {
                     page: this.page,
                 }
             }).then(res => {
-                console.log(res.data)
                 this.characters = res.data.characters
                 this.pageLength = res.data.pageLength
             }).catch(error => {
@@ -90,7 +90,8 @@ export default {
         page () {
             this.getCharacters()
         }
-    }
+    },
+    components: { SearchCharacterCard },
 }
 </script>
 <style lang="scss" scoped>
