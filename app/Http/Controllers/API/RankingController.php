@@ -71,7 +71,24 @@ class RankingController extends Controller
      */
     public function store(Request $request)
     {
+        // 同じランキング名が存在したらはじく
+        if (Ranking::whereRaw('name = binary ?', $request->ranking_name)->exists()) {
+            return 'このランキング名は既に使われています';
+        }
+
+        // 同じパラメータの組み合わせははじく
+        $groupby_ranking_items = Item::get()->groupBy('ranking_id');
+        $parameters = collect($request->check_parameters)->sort()->values();
+
+        foreach ($groupby_ranking_items as $groupby_ranking_item) {
+            $item_names = collect($groupby_ranking_item->pluck('name'))->sort()->values();
+            if ($item_names == $parameters) {
+                return 'このランキングは既に作成されています';
+            }
+        }
+
         return DB::transaction(function () use ($request) {
+
             $ranking = new Ranking;
             $ranking->name = $request->ranking_name;
             $ranking->save();
@@ -81,7 +98,7 @@ class RankingController extends Controller
                 $item->ranking_id = $ranking->id;
                 $item->name = $param;
                 $item->save();
-            };
+            }
             return $ranking;
         });
     }

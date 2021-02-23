@@ -7,7 +7,7 @@
         </v-row>
         <div v-for="(ranking, index) in rankings" :key="index" class="py-5 my-5">
             <v-row class="justify-center">
-                <v-col cols="auto" class="pa-5">
+                <v-col cols="auto" class="pt-5 pb-0">
                     <router-link :to="{ path: 'ranking/' + ranking.id }">
                         <h2>{{ ranking.name }}ランキング</h2>
                     </router-link>                   

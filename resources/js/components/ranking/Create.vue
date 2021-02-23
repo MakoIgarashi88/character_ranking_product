@@ -14,6 +14,11 @@
                 </v-col>
             </v-row>
             <v-row justify="center">
+                <v-col cols="10" class="text-center">
+                    <p class="mb-0">各項目の合計点数が高いキャラクターが一位になります</p>
+                </v-col>
+            </v-row>
+            <v-row justify="center">
                 <v-col cols="10">
                     <v-card outlined>
                         <v-card-text>
@@ -81,13 +86,18 @@ export default {
                 ranking_name: this.ranking_name,
                 check_parameters: this.check_parameters,
             }).then(res => {
-                alert('ランキングを作成しました')
-                this.ranking_name = ""
-                this.check_parameters = []
-                this.$router.push({ path: '/ranking/' + res.data.id })
-                this.isLoading = false
+                if (typeof res.data == 'string') {
+                    alert(res.data)
+                    this.isLoading = false
+                } else {
+                    alert('ランキングを作成しました')
+                    this.ranking_name = ""
+                    this.check_parameters = []
+                    this.$router.push({ path: '/ranking/' + res.data.id })
+                    this.isLoading = false
+                }
             }).catch(res => {
-                alert('コメントの取得に失敗しました')
+                alert('ランキングの作成に失敗しました')
             })
         },
     },
