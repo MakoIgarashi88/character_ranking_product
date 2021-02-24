@@ -45,6 +45,7 @@ class CharacterController extends Controller
         return response()->json([
             'characters' => CharacterCardResource::collection($characters),
             'pageLength' => $pageLength,
+            'searched_word' => $request->search_word,
         ]);
     }
 
@@ -56,6 +57,12 @@ class CharacterController extends Controller
      */
     public function store(Request $request)
     {
+        $name        = $request->character['name'];
+        $anime_title = $request->character['anime_title'];
+        $exist = Character::whereRaw('name = binary ?', $name)->whereRaw('anime_title = binary ?', $anime_title)->exists();
+
+        if ($exist) return 'このキャラクターはすでに作成されています';
+
         return DB::transaction(function () use ($request) {
             $character = new Character;
             $character->name = $request->character['name'];

@@ -32,7 +32,7 @@
                                     <v-col class="text-center">
                                         <v-text-field
                                         label="キャラクター名"
-                                        :placeholder="is_update ? '' : 'キャラクター名'"
+                                        placeholder="キャラクター名"
                                         :disabled="is_update"
                                         :rules="nameRules"
                                         v-model="character.name"
@@ -45,7 +45,7 @@
                                     <v-col class="text-center">
                                         <v-text-field
                                         label="作品名"
-                                        :placeholder="is_update ? '' : '作品名'"
+                                        placeholder="作品名"
                                         :disabled="is_update"
                                         :rules="animeNameRules"
                                         v-model="character.anime_title"
@@ -58,7 +58,7 @@
                                     <v-col>
                                         <v-text-field
                                         label="CV"
-                                        :placeholder="is_update ? '' : 'キャラクターボイス'"
+                                        placeholder="キャラクターボイス"
                                         :rules="characterVoiceRules"
                                         v-model="character.character_voice"
                                         outlined
@@ -70,7 +70,7 @@
                                     <v-col cols="9">
                                         <v-text-field
                                         label="性別"
-                                        :placeholder="is_update ? '' : '例：女性/男性/なし'"
+                                        placeholder="例：女性/男性/なし"
                                         :rules="genderRules"
                                         v-model="character.gender"
                                         outlined
@@ -89,7 +89,7 @@
                                     <v-col>
                                         <v-text-field
                                         label="誕生日"
-                                        :placeholder="is_update ? '' : '例：1/31'"
+                                        placeholder="例：1/31"
                                         :rules="birthdayRules"
                                         v-model="character.birthday"
                                         outlined
@@ -108,7 +108,7 @@
                                     <v-col>
                                         <v-text-field
                                         label="年齢"
-                                        :placeholder="is_update ? '' : '例：16歳'"
+                                        placeholder="例：16歳"
                                         :rules="ageRules"
                                         v-model="character.age"
                                         outlined
@@ -127,7 +127,7 @@
                                     <v-col>
                                         <v-text-field
                                         label="血液型"
-                                        :placeholder="is_update ? '' : '例：A型 X型'"
+                                        placeholder="例：A型 X型"
                                         :rules="bloodTypeRules"
                                         v-model="character.blood_type"
                                         outlined
@@ -146,7 +146,7 @@
                                     <v-col>
                                         <v-text-field
                                         label="身長"
-                                        :placeholder="is_update ? '' : '例：170cm'"
+                                        placeholder="例：170cm"
                                         :rules="heightRules"
                                         v-model="character.height"
                                         outlined
@@ -165,7 +165,7 @@
                                     <v-col>
                                         <v-text-field
                                         label="体重"
-                                        :placeholder="is_update ? '' : '60kg'"
+                                        placeholder="60kg"
                                         :rules="weightRules"
                                         v-model="character.weight"
                                         outlined
@@ -290,7 +290,7 @@ export default {
                 .then(res => {
                     this.$router.push({ path: '/character/' + this.character_id })
                 }).catch(res => {
-                    alert('キャラクターの送信に失敗しました')
+                    alert('キャラクターの編集に失敗しました')
                 })
             } else {
                 this.isLoading = true
@@ -299,10 +299,15 @@ export default {
                     upload_image: this.upload_image,
                 })
                 .then(res => {
-                    this.$router.push({ path: '/character/' + res.data.id })
-                    this.isLoading = false
+                    if (typeof res.data == 'string') {
+                        alert(res.data)
+                        this.isLoading = false
+                    } else {
+                        this.$router.push({ path: '/character/' + res.data.id })
+                        this.isLoading = false
+                    }
                 }).catch(res => {
-                    alert('キャラクターの送信に失敗しました')
+                    alert('キャラクターの作成に失敗しました')
                 })
             }
         },

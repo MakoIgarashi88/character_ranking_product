@@ -15,7 +15,7 @@ class CreateRankingsTable extends Migration
     {
         Schema::create('rankings', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique()->comment('ランキング名');
+            $table->string('name')->comment('ランキング名');
             $table->timestamps();
         });
     }

@@ -31,7 +31,7 @@ class RankingSeeder extends Seeder
         $model->save();
 
         $model = new Ranking;
-        $model->name = 'ツンデレ';
+        $model->name = 'かしこい';
         $model->save();
 
         $model = new Ranking;
@@ -39,11 +39,31 @@ class RankingSeeder extends Seeder
         $model->save();
 
         $model = new Ranking;
-        $model->name = 'かしこい';
+        $model->name = '頼れる';
         $model->save();
 
         $model = new Ranking;
-        $model->name = '友だちになりたい';
+        $model->name = 'イケメン';
+        $model->save();
+
+        $model = new Ranking;
+        $model->name = '華やか';
+        $model->save();
+
+        $model = new Ranking;
+        $model->name = '清楚';
+        $model->save();
+
+        $model = new Ranking;
+        $model->name = '怖い';
+        $model->save();
+
+        $model = new Ranking;
+        $model->name = 'バキ';
+        $model->save();
+
+        $model = new Ranking;
+        $model->name = 'ジャンプの主人公';
         $model->save();
 
     }

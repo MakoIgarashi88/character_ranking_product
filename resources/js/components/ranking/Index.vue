@@ -29,6 +29,12 @@
             </v-row>
         </v-form>
 
+        <v-row v-if="rankings.length == 0 && is_init">
+            <v-col>
+                <p>{{ searched_word }}に一致するランキングは見つかりませんでした。</p>
+            </v-col>
+        </v-row>
+
         <v-row v-show="pageLength">
             <v-col cols="12" class="justify-center mb-5">
                 <v-pagination v-model="page" :length="pageLength" circle></v-pagination>
@@ -80,9 +86,11 @@ export default {
         return {
             rankings: [],
             search_word: "",
+            searched_word: "",
             page: 1,
             pageLength: 0,
             isLoading: false,
+            is_init: false, // 初期化されている: true 初期化されていない: false
         }
     },
     mounted () {
@@ -99,10 +107,12 @@ export default {
             }).then(res => {
                 this.rankings = res.data.rankings
                 this.pageLength = res.data.pageLength
+                this.searched_word = res.data.searched_word
             }).catch(res => {
                 alert('一覧の取得に失敗しました')
             }).finally(res => {
                 this.isLoading = false
+                this.is_init = true
             })
         },
         onSearch () {

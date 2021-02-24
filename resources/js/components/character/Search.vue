@@ -27,6 +27,13 @@
                 </v-col>
             </v-row>
         </v-form>
+
+        <v-row v-if="characters.length == 0 && is_init">
+            <v-col>
+                <p>{{ searched_word }}に一致するキャラクターは見つかりませんでした。</p>
+            </v-col>
+        </v-row>
+
         <v-row v-show="pageLength">
             <v-col cols="12" class="justify-center">
                 <v-pagination v-model="page" :length="pageLength" circle></v-pagination>
@@ -52,10 +59,12 @@ export default {
     data () {
         return {
             search_word: '',
+            searched_word: '',
             page: 1,
             pageLength: 0,
             characters: [],
             isLoading: false,
+            is_init: false,
         }
     },
     mounted () {
@@ -72,10 +81,12 @@ export default {
             }).then(res => {
                 this.characters = res.data.characters
                 this.pageLength = res.data.pageLength
+                this.searched_word = res.data.searched_word
             }).catch(error => {
                 alert(error)
             }).finally(res => {
                 this.isLoading = false
+                this.is_init = true
             })
         },
         onSearch () {

@@ -217,6 +217,7 @@ class RankingController extends Controller
         return response()->json([
             'rankings' => $rankings,
             'pageLength' => $pageLength,
+            'searched_word' => $search_word,
         ]);
     }
 

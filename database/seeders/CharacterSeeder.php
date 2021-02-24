@@ -15,6 +15,20 @@ class CharacterSeeder extends Seeder
     public function run()
     {
         $model = new Character;
+        $model->name = '江戸川コナン';
+        $model->anime_title = '名探偵コナン';
+        $model->image_name = '/storage/images/01.jpg';
+        $model->character_voice = '高山みなみ';
+        $model->gender = '男性';
+        $model->birthday = '不明';
+        $model->age = '6~7歳';
+        $model->blood_type = '不明';
+        $model->height = '不明';
+        $model->weight = '18kg';
+        $model->detail = '天才的な頭脳の持ち主である名探偵であり、幾多の難事件を持ち前の頭脳で解決してきた。帝丹小学校1年B組で、少年探偵団の一員。毛利探偵事務所に居候している。';
+        $model->save();
+
+        $model = new Character;
         $model->name = '爆豪勝己';
         $model->anime_title = '僕のヒーローアカデミア';
         $model->image_name = '/storage/images/02.jpeg';
