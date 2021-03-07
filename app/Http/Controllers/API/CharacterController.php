@@ -39,7 +39,7 @@ class CharacterController extends Controller
 
         // 絞り込まれたキャラクターの件数
         $characters_count = $query->count();
-        $characters = $query->offset($offset)->limit($countPerPage)->get();
+        $characters = $query->offset($offset)->orderBy('id', 'desc')->limit($countPerPage)->get();
         $pageLength = ceil($characters_count / $countPerPage);
 
         return response()->json([
@@ -75,7 +75,7 @@ class CharacterController extends Controller
             $character->blood_type = $request->character['blood_type'];
             $character->height = $request->character['height'];
             $character->weight = $request->character['weight'];
-            $character->detail = $request->character['detail'];
+            if ($request->character['detail']) $character->detail = $request->character['detail'];
             
             $character->save();
 
@@ -115,8 +115,11 @@ class CharacterController extends Controller
             $character->blood_type = $request->character['blood_type'];
             $character->height = $request->character['height'];
             $character->weight = $request->character['weight'];
-            $character->detail = $request->character['detail'];
-            
+            if (!$request->character['detail']) {
+                $character->detail = '';
+            } else {
+                $character->detail = $request->character['detail'];
+            }
             $character->save();
         });
     }

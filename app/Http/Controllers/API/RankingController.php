@@ -191,11 +191,27 @@ class RankingController extends Controller
         $page         = $request->page;           // 現在のページ
         $countPerPage = 10;                       // 1ページあたりの件数
         $offset       = ($page-1)*$countPerPage;  // 何件目から
+        logger($search_word);
+        logger($search_word);
         
         $query = Ranking::select('id', 'name');
 
         if ($search_word) {
-            $string  = preg_replace("/( |　)/", " ", $search_word);
+            // 文字列の中に 'ランキング' または 'らんきんぐ' が含まれていたら削除する
+            if (strpos($search_word, 'ランキング') !== false) {
+                $search_word = str_replace('ランキング', '', $search_word);
+            }
+            if (strpos($search_word, 'らんきんぐ') !== false) {
+                $search_word = str_replace('らんきんぐ', '', $search_word);
+            }
+            
+            // 全角スペースを半角スペースに変換する
+            $string = preg_replace("/( |　)/", " ", $search_word);
+
+            // 文字列の前後に半角スペースがあれば削除する
+            $string = trim($string);
+
+            // 半角スペース区切りで配列内へ要素として追加する
             $search_words = explode(" ", $string);
 
             foreach ($search_words as $word) {
@@ -205,7 +221,7 @@ class RankingController extends Controller
 
         $ranking_count = $query->count();
         $pageLength    = ceil($ranking_count / $countPerPage);
-        $rankings      = $query->offset($offset)->limit($countPerPage)->get();
+        $rankings      = $query->offset($offset)->orderBy('id', 'desc')->limit($countPerPage)->get();
 
         foreach ($rankings as $ranking) {
             $ranking["params"] = Item::select('parameter_labels.label', 'parameter_labels.color')

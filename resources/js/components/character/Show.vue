@@ -59,7 +59,7 @@
                             <v-row><v-col><h3 class="text-center py-3">知性</h3></v-col></v-row>
                             <RadarChart :chart-data="intelligence_chartdata"/>
 
-                            <v-row justify="center">
+                            <v-row justify="center" v-if="character.detail">
                                 <v-col>
                                     <v-card outlined>
                                         <v-card-title>

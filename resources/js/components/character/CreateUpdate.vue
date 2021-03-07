@@ -55,20 +55,32 @@
                                     </v-col>
                                 </v-row>    
                                 <v-row justify="center">
-                                    <v-col>
+                                    <v-col class="pb-0">
                                         <v-text-field
-                                        label="CV"
-                                        placeholder="キャラクターボイス"
+                                        cols="12"
+                                        sm="9"
+                                        label="声優"
+                                        placeholder="声優"
                                         :rules="characterVoiceRules"
                                         v-model="character.character_voice"
                                         outlined
                                         dense
                                         ></v-text-field>
                                     </v-col>
+                                    <v-col cols="12" sm="3" class="pt-0">
+                                        <v-checkbox
+                                        class="mt-0"
+                                        v-model="character.character_voice"
+                                        value="不明"
+                                        label="不明"
+                                        ></v-checkbox>
+                                    </v-col>
                                 </v-row>
                                 <v-row justify="center">
-                                    <v-col cols="9">
+                                    <v-col class="pb-0">
                                         <v-text-field
+                                        cols="12"
+                                        sm="9"
                                         label="性別"
                                         placeholder="例：女性/男性/なし"
                                         :rules="genderRules"
@@ -77,8 +89,9 @@
                                         dense
                                         ></v-text-field>
                                     </v-col>
-                                    <v-col cols="3">
+                                    <v-col cols="12" sm="3" class="pt-0">
                                         <v-checkbox
+                                        class="mt-0"
                                         v-model="character.gender"
                                         value="不明"
                                         label="不明"
@@ -86,8 +99,10 @@
                                     </v-col>
                                 </v-row>
                                 <v-row justify="center">
-                                    <v-col>
+                                    <v-col class="pb-0">
                                         <v-text-field
+                                        cols="12"
+                                        sm="9"
                                         label="誕生日"
                                         placeholder="例：1/31"
                                         :rules="birthdayRules"
@@ -96,8 +111,9 @@
                                         dense
                                         ></v-text-field>
                                     </v-col>
-                                    <v-col cols="3">
+                                    <v-col cols="12" sm="3" class="pt-0">
                                         <v-checkbox
+                                        class="mt-0"
                                         v-model="character.birthday"
                                         value="不明"
                                         label="不明"
@@ -105,8 +121,10 @@
                                     </v-col>
                                 </v-row>
                                 <v-row justify="center">
-                                    <v-col>
+                                    <v-col class="pb-0">
                                         <v-text-field
+                                        cols="12"
+                                        sm="9"
                                         label="年齢"
                                         placeholder="例：16歳"
                                         :rules="ageRules"
@@ -115,8 +133,9 @@
                                         dense
                                         ></v-text-field>
                                     </v-col>
-                                    <v-col cols="3">
+                                    <v-col cols="12" sm="3" class="pt-0">
                                         <v-checkbox
+                                        class="mt-0"
                                         v-model="character.age"
                                         value="不明"
                                         label="不明"
@@ -124,8 +143,10 @@
                                     </v-col>
                                 </v-row>
                                 <v-row justify="center">
-                                    <v-col>
+                                    <v-col class="pb-0">
                                         <v-text-field
+                                        cols="12"
+                                        sm="9"
                                         label="血液型"
                                         placeholder="例：A型 X型"
                                         :rules="bloodTypeRules"
@@ -134,8 +155,9 @@
                                         dense
                                         ></v-text-field>
                                     </v-col>
-                                    <v-col cols="3">
+                                    <v-col cols="12" sm="3" class="pt-0">
                                         <v-checkbox
+                                        class="mt-0"
                                         v-model="character.blood_type"
                                         value="不明"
                                         label="不明"
@@ -143,8 +165,10 @@
                                     </v-col>
                                 </v-row>
                                 <v-row justify="center">
-                                    <v-col>
+                                    <v-col class="pb-0">
                                         <v-text-field
+                                        cols="12"
+                                        sm="9"
                                         label="身長"
                                         placeholder="例：170cm"
                                         :rules="heightRules"
@@ -153,8 +177,9 @@
                                         dense
                                         ></v-text-field>
                                     </v-col>
-                                    <v-col cols="3">
+                                    <v-col cols="12" sm="3" class="pt-0">
                                         <v-checkbox
+                                        class="mt-0"
                                         v-model="character.height"
                                         value="不明"
                                         label="不明"
@@ -162,8 +187,10 @@
                                     </v-col>
                                 </v-row>
                                 <v-row justify="center">
-                                    <v-col>
+                                    <v-col class="pb-0">
                                         <v-text-field
+                                        cols="12"
+                                        sm="9"
                                         label="体重"
                                         placeholder="60kg"
                                         :rules="weightRules"
@@ -172,8 +199,9 @@
                                         dense
                                         ></v-text-field>
                                     </v-col>
-                                    <v-col cols="3">
+                                    <v-col cols="12" sm="3" class="pt-0">
                                         <v-checkbox
+                                        class="mt-0"
                                         v-model="character.weight"
                                         value="不明"
                                         label="不明"
@@ -184,7 +212,7 @@
                                     <v-col>
                                         <v-textarea
                                         label="詳細"
-                                        :rules="detailRules"
+                                        :error-messages="character.detail && character.detail.length > 400 ? '400文字以内で入力してください' : ''"
                                         v-model="character.detail"
                                         outlined
                                         dense
@@ -253,9 +281,6 @@ export default {
             weightRules: [
                 v => !!v || '必須入力',
                 v => (v && v.length <= 30) || '30文字以内で入力してください',
-            ],
-            detailRules: [
-                v => (v && v.length <= 400) || '400文字以内で入力してください',
             ],
         }
     },

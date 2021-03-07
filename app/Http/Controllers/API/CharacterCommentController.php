@@ -48,7 +48,7 @@ class CharacterCommentController extends Controller
      */
     public function show($id)
     {
-        $comments = CharacterComment::where('character_id', $id)->get();
+        $comments = CharacterComment::where('character_id', $id)->orderBy('id', 'desc')->get();
         return CharacterCommentResource::collection($comments);
     }
 

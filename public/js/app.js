@@ -2142,6 +2142,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["character_id"],
   data: function data() {
@@ -2195,9 +2223,6 @@ __webpack_require__.r(__webpack_exports__);
         return !!v || '必須入力';
       }, function (v) {
         return v && v.length <= 30 || '30文字以内で入力してください';
-      }],
-      detailRules: [function (v) {
-        return v && v.length <= 400 || '400文字以内で入力してください';
       }]
     };
   },
@@ -60966,15 +60991,45 @@ var render = function() {
                                 [
                                   _c(
                                     "v-col",
+                                    { staticClass: "pb-0" },
                                     [
                                       _c("v-text-field", {
                                         attrs: {
-                                          label: "CV",
-                                          placeholder: "キャラクターボイス",
+                                          cols: "12",
+                                          sm: "9",
+                                          label: "声優",
+                                          placeholder: "声優",
                                           rules: _vm.characterVoiceRules,
                                           outlined: "",
                                           dense: ""
                                         },
+                                        model: {
+                                          value: _vm.character.character_voice,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.character,
+                                              "character_voice",
+                                              $$v
+                                            )
+                                          },
+                                          expression:
+                                            "character.character_voice"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-col",
+                                    {
+                                      staticClass: "pt-0",
+                                      attrs: { cols: "12", sm: "3" }
+                                    },
+                                    [
+                                      _c("v-checkbox", {
+                                        staticClass: "mt-0",
+                                        attrs: { value: "不明", label: "不明" },
                                         model: {
                                           value: _vm.character.character_voice,
                                           callback: function($$v) {
@@ -61001,10 +61056,12 @@ var render = function() {
                                 [
                                   _c(
                                     "v-col",
-                                    { attrs: { cols: "9" } },
+                                    { staticClass: "pb-0" },
                                     [
                                       _c("v-text-field", {
                                         attrs: {
+                                          cols: "12",
+                                          sm: "9",
                                           label: "性別",
                                           placeholder: "例：女性/男性/なし",
                                           rules: _vm.genderRules,
@@ -61029,9 +61086,13 @@ var render = function() {
                                   _vm._v(" "),
                                   _c(
                                     "v-col",
-                                    { attrs: { cols: "3" } },
+                                    {
+                                      staticClass: "pt-0",
+                                      attrs: { cols: "12", sm: "3" }
+                                    },
                                     [
                                       _c("v-checkbox", {
+                                        staticClass: "mt-0",
                                         attrs: { value: "不明", label: "不明" },
                                         model: {
                                           value: _vm.character.gender,
@@ -61058,9 +61119,12 @@ var render = function() {
                                 [
                                   _c(
                                     "v-col",
+                                    { staticClass: "pb-0" },
                                     [
                                       _c("v-text-field", {
                                         attrs: {
+                                          cols: "12",
+                                          sm: "9",
                                           label: "誕生日",
                                           placeholder: "例：1/31",
                                           rules: _vm.birthdayRules,
@@ -61085,9 +61149,13 @@ var render = function() {
                                   _vm._v(" "),
                                   _c(
                                     "v-col",
-                                    { attrs: { cols: "3" } },
+                                    {
+                                      staticClass: "pt-0",
+                                      attrs: { cols: "12", sm: "3" }
+                                    },
                                     [
                                       _c("v-checkbox", {
+                                        staticClass: "mt-0",
                                         attrs: { value: "不明", label: "不明" },
                                         model: {
                                           value: _vm.character.birthday,
@@ -61114,9 +61182,12 @@ var render = function() {
                                 [
                                   _c(
                                     "v-col",
+                                    { staticClass: "pb-0" },
                                     [
                                       _c("v-text-field", {
                                         attrs: {
+                                          cols: "12",
+                                          sm: "9",
                                           label: "年齢",
                                           placeholder: "例：16歳",
                                           rules: _vm.ageRules,
@@ -61137,9 +61208,13 @@ var render = function() {
                                   _vm._v(" "),
                                   _c(
                                     "v-col",
-                                    { attrs: { cols: "3" } },
+                                    {
+                                      staticClass: "pt-0",
+                                      attrs: { cols: "12", sm: "3" }
+                                    },
                                     [
                                       _c("v-checkbox", {
+                                        staticClass: "mt-0",
                                         attrs: { value: "不明", label: "不明" },
                                         model: {
                                           value: _vm.character.age,
@@ -61162,9 +61237,12 @@ var render = function() {
                                 [
                                   _c(
                                     "v-col",
+                                    { staticClass: "pb-0" },
                                     [
                                       _c("v-text-field", {
                                         attrs: {
+                                          cols: "12",
+                                          sm: "9",
                                           label: "血液型",
                                           placeholder: "例：A型 X型",
                                           rules: _vm.bloodTypeRules,
@@ -61189,9 +61267,13 @@ var render = function() {
                                   _vm._v(" "),
                                   _c(
                                     "v-col",
-                                    { attrs: { cols: "3" } },
+                                    {
+                                      staticClass: "pt-0",
+                                      attrs: { cols: "12", sm: "3" }
+                                    },
                                     [
                                       _c("v-checkbox", {
+                                        staticClass: "mt-0",
                                         attrs: { value: "不明", label: "不明" },
                                         model: {
                                           value: _vm.character.blood_type,
@@ -61218,9 +61300,12 @@ var render = function() {
                                 [
                                   _c(
                                     "v-col",
+                                    { staticClass: "pb-0" },
                                     [
                                       _c("v-text-field", {
                                         attrs: {
+                                          cols: "12",
+                                          sm: "9",
                                           label: "身長",
                                           placeholder: "例：170cm",
                                           rules: _vm.heightRules,
@@ -61245,9 +61330,13 @@ var render = function() {
                                   _vm._v(" "),
                                   _c(
                                     "v-col",
-                                    { attrs: { cols: "3" } },
+                                    {
+                                      staticClass: "pt-0",
+                                      attrs: { cols: "12", sm: "3" }
+                                    },
                                     [
                                       _c("v-checkbox", {
+                                        staticClass: "mt-0",
                                         attrs: { value: "不明", label: "不明" },
                                         model: {
                                           value: _vm.character.height,
@@ -61274,9 +61363,12 @@ var render = function() {
                                 [
                                   _c(
                                     "v-col",
+                                    { staticClass: "pb-0" },
                                     [
                                       _c("v-text-field", {
                                         attrs: {
+                                          cols: "12",
+                                          sm: "9",
                                           label: "体重",
                                           placeholder: "60kg",
                                           rules: _vm.weightRules,
@@ -61301,9 +61393,13 @@ var render = function() {
                                   _vm._v(" "),
                                   _c(
                                     "v-col",
-                                    { attrs: { cols: "3" } },
+                                    {
+                                      staticClass: "pt-0",
+                                      attrs: { cols: "12", sm: "3" }
+                                    },
                                     [
                                       _c("v-checkbox", {
+                                        staticClass: "mt-0",
                                         attrs: { value: "不明", label: "不明" },
                                         model: {
                                           value: _vm.character.weight,
@@ -61334,7 +61430,11 @@ var render = function() {
                                       _c("v-textarea", {
                                         attrs: {
                                           label: "詳細",
-                                          rules: _vm.detailRules,
+                                          "error-messages":
+                                            _vm.character.detail &&
+                                            _vm.character.detail.length > 400
+                                              ? "400文字以内で入力してください"
+                                              : "",
                                           outlined: "",
                                           dense: ""
                                         },
@@ -61475,7 +61575,7 @@ var render = function() {
                       solo: "",
                       "clear-icon": "mdi-close-circle",
                       clearable: "",
-                      type: "search",
+                      type: "text",
                       "hide-details": ""
                     },
                     on: { "click:clear": _vm.clearMessage },
@@ -61868,39 +61968,41 @@ var render = function() {
                             attrs: { "chart-data": _vm.intelligence_chartdata }
                           }),
                           _vm._v(" "),
-                          _c(
-                            "v-row",
-                            { attrs: { justify: "center" } },
-                            [
-                              _c(
-                                "v-col",
+                          _vm.character.detail
+                            ? _c(
+                                "v-row",
+                                { attrs: { justify: "center" } },
                                 [
                                   _c(
-                                    "v-card",
-                                    { attrs: { outlined: "" } },
+                                    "v-col",
                                     [
-                                      _c("v-card-title", [
-                                        _vm._v(
-                                          "\n                                        詳細\n                                    "
-                                        )
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("v-card-subtitle", [
-                                        _vm._v(
-                                          "\n                                        " +
-                                            _vm._s(_vm.character.detail) +
-                                            "\n                                    "
-                                        )
-                                      ])
+                                      _c(
+                                        "v-card",
+                                        { attrs: { outlined: "" } },
+                                        [
+                                          _c("v-card-title", [
+                                            _vm._v(
+                                              "\n                                        詳細\n                                    "
+                                            )
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("v-card-subtitle", [
+                                            _vm._v(
+                                              "\n                                        " +
+                                                _vm._s(_vm.character.detail) +
+                                                "\n                                    "
+                                            )
+                                          ])
+                                        ],
+                                        1
+                                      )
                                     ],
                                     1
                                   )
                                 ],
                                 1
                               )
-                            ],
-                            1
-                          ),
+                            : _vm._e(),
                           _vm._v(" "),
                           _c(
                             "v-row",
@@ -62891,7 +62993,7 @@ var render = function() {
                       solo: "",
                       "clear-icon": "mdi-close-circle",
                       clearable: "",
-                      type: "search",
+                      type: "text",
                       "hide-details": ""
                     },
                     on: { "click:clear": _vm.clearMessage },

@@ -15,7 +15,7 @@
                     solo
                     clear-icon="mdi-close-circle"
                     clearable
-                    type="search"
+                    type="text"
                     hide-details
                     @click:clear="clearMessage"
                     ></v-text-field>
