@@ -75,7 +75,7 @@ class CharacterController extends Controller
             $character->blood_type = $request->character['blood_type'];
             $character->height = $request->character['height'];
             $character->weight = $request->character['weight'];
-            if ($request->character['detail']) $character->detail = $request->character['detail'];
+            $character->detail = $request->character['detail'] ?? '';
             
             $character->save();
 
@@ -115,11 +115,8 @@ class CharacterController extends Controller
             $character->blood_type = $request->character['blood_type'];
             $character->height = $request->character['height'];
             $character->weight = $request->character['weight'];
-            if (!$request->character['detail']) {
-                $character->detail = '';
-            } else {
-                $character->detail = $request->character['detail'];
-            }
+            $character->detail = $request->character['detail'] ?? '';
+
             $character->save();
         });
     }

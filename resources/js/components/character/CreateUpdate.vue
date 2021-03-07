@@ -241,7 +241,9 @@ export default {
     data() {
         return {
             valid: false,
-            character: {},
+            character: {
+                detail: ''
+            },
             image: '/storage/images/default.jpeg',
             upload_image: null,
             isLoading: false,
