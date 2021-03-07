@@ -18,7 +18,7 @@ class CreateCharactersTable extends Migration
             $table->id();
             $table->string('name')->comment('キャラクター名');
             $table->string('anime_title')->comment('出演作品名');
-            $table->text('image_name')->default('/storage/images/default.jpeg')->comment('画像名');
+            $table->string('image_name')->default('/storage/images/default.jpeg')->comment('画像名');
             $table->string('character_voice')->default('')->comment('声優');
             $table->string('gender')->comment('性別');
             $table->string('birthday')->default('')->comment('誕生日');
@@ -26,7 +26,7 @@ class CreateCharactersTable extends Migration
             $table->string('blood_type')->default('不明')->comment('血液型');
             $table->string('height')->default('不明')->comment('身長');
             $table->string('weight')->default('不明')->comment('体重');
-            $table->longText('detail')->default('')->comment('詳細');
+            $table->longText('detail')->comment('詳細');
             $table->timestamps();
         });
     }
