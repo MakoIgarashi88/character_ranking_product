@@ -15,7 +15,14 @@ export default {
                 scale: {
                     pointLabels: {       // 軸のラベル（"国語"など）
                         fontSize: 13,         // 文字の大きさ
-                        fontColor: "gray"     // 文字の色
+                        fontColor: "gray",    // 文字の色
+                        callback: function (val) {
+                            if (val.length > 3) {
+                                return [val.substr(0, 3), val.substr(3)]
+                            } else {
+                                return val;                
+                            }
+                        }
                     },
                     ticks: {             // 目盛り
                         min: 0,              // 最小値
