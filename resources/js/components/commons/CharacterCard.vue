@@ -21,7 +21,9 @@
                 {{ character.anime_title }}
             </v-col>
         </v-row>
-        <RadarChart :chart-data="chartdata" v-if="chart && items.length > 2" />
+        <v-row justify="center" v-if="chart && items.length > 2">
+            <v-col cols="11"><RadarChart :chart-data="chartdata" /></v-col>
+        </v-row>
         <div v-else-if="chart && items.length <= 2">
             <v-row>
                 <v-col v-for="(param, index) in params" :key="index"  class="px-1">
@@ -80,3 +82,6 @@ export default {
     }
 }
 </script>
+<style lang='scss' scoped>
+
+</style>
