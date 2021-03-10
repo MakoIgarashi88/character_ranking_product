@@ -21,6 +21,10 @@
                             <CharaCard :character="character" :items="ranking.items" chart/>
                         </v-col>
                     </v-row>
+                    <v-row>
+                        <v-col class="pa-5">
+                        </v-col>
+                    </v-row>
                 </div>
             </v-col>
         </v-row>

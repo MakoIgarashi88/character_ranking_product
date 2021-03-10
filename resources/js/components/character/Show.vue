@@ -115,7 +115,7 @@ export default {
             ]).then(axios.spread((res,res2) => {
                 this.character = res.data
                 this.items = [
-                    { text: 'CV', name: this.character.character_voice },
+                    { text: '声優', name: this.character.character_voice },
                     { text: '性別', name: this.character.gender },
                     { text: '誕生日', name: this.character.birthday },
                     { text: '年齢', name: this.character.age },
